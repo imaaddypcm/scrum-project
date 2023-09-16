@@ -7,7 +7,7 @@ class Main {
 	static String username = "username";
 	static String password = "password";
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
 			// The newInstance() call is a work around for some
 			// broken Java implementations

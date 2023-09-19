@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 class Main {
-	static String url = "jdbc:sqlite:hotel.db";
+	static String url = "jdbc:sqlite:hotel.sqlite";
 
 	public static void main(String[] args) {
 		try {

@@ -3,15 +3,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 class Main {
-	static String url = "jdbc:mysql://localhost:3306/";
-	static String username = "username";
-	static String password = "password";
+	static String url = "jdbc:sqlite:hotel.db";
 
 	public static void main(String[] args) {
 		try {
 			// The newInstance() call is a work around for some
 			// broken Java implementations
 			Class.forName("com.mysql.cj.jdbc.Driver")/*.newInstance()*/;
+			Class.forName("org.sqlite.jdbc4")/*.newInstance()*/;
 		} catch (Exception ex) {
 			// handle the error
 		}

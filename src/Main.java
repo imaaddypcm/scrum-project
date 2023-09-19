@@ -1,23 +1,22 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 class Main {
 	static String url = "jdbc:sqlite:hotel.sqlite";
 
 	public static void main(String[] args) {
-		try {
-			// The newInstance() call is a work around for some
-			// broken Java implementations
-			Class.forName("com.mysql.cj.jdbc.Driver")/*.newInstance()*/;
-			Class.forName("org.sqlite.jdbc4")/*.newInstance()*/;
-		} catch (Exception ex) {
-			// handle the error
-		}
 		System.out.println("Connecting database...");
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement();
+			stmt.execute("CREATE TABLE IF NOT EXISTS users (\n"
+			+ "	id integer PRIMARY KEY,\n"
+			+ "	name text NOT NULL,\n"
+			+ "	capacity real\n"
+			+ ");");
 			// Do something with the Connection
 		} catch (SQLException ex) {
 			// handle any errors

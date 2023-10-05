@@ -16,7 +16,12 @@ repositories {
 }
 
 dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
     implementation 'org.xerial:sqlite-jdbc:3.43.0.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -31,9 +36,17 @@ sourceSets {
         java { srcDirs = ["src/"] }
         resources { srcDirs = ["src/resources"] }
     }
+    test {
+        java { srcDirs = ['src/tests'] }
+    }
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'Main'
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
 }

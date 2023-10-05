@@ -19,8 +19,11 @@ public class Gui {
 	// member variables
 	private JFrame frame;
 
+	// reservation manager
+	ReservationManager rm;
+
 	// default contructor
-	public Gui() {
+	public Gui(ReservationManager resvmanager) {
 		frame = new JFrame("Four Corners Hotel Reservation System");
 
 		createMenu();
@@ -40,6 +43,7 @@ public class Gui {
 		frame.setLayout(null); // telling Java not to arrange anything for us. we will use setBounds to arrange components ourselves
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true); // MUST HAVE!
+		rm = resvmanager;
 	}
 
 	private void createMenu() {
@@ -63,8 +67,8 @@ public class Gui {
 
 		// Add Menus to Menu Bar
 		menuBar.add(fileMenu);
-		menuBar.add(helpMenu);
 		menuBar.add(resvMenu);
+		menuBar.add(helpMenu);
 
 		frame.setJMenuBar(menuBar);
 	}
@@ -91,7 +95,7 @@ public class Gui {
 		resvmCreate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "test");
+				JOptionPane.showMessageDialog(null, "test" + rm.CreateReservation());
 			}
 		});
 	}

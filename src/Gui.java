@@ -52,7 +52,7 @@ public class Gui {
 
 		// Menus
 		fileMenu = new JMenu("File");
-		resvMenu = new JMenu("Reserveation");
+		resvMenu = new JMenu("Reservation");
 		helpMenu = new JMenu("Help");
 
 		// Menu Items
@@ -95,7 +95,7 @@ public class Gui {
 		resvmCreate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "test" + rm.CreateReservation());
+				JOptionPane.showMessageDialog(null, "test");
 			}
 		});
 	}

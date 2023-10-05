@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class ReservationManager {
     private Reservation reservations[];
 
@@ -5,11 +7,12 @@ public class ReservationManager {
 
     }
 
-    public boolean CreateReservation() {
-        return false;
+    public Reservation CreateReservation(Customer customer, Room roomsReserved[], int numberOfGuests, Date startTime, Date endTime) {
+
+        return null;
     }
 
-    public boolean CancelReservation() {
+    public boolean CancelReservation(int reservationId) {
         return false;
     }
 }

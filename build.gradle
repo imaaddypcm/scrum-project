@@ -33,7 +33,10 @@ java {
 
 sourceSets {
     main {
-        java { srcDirs = ["src/"] }
+        java {
+            srcDirs = ["src/"]
+            exclude '**/tests/*'
+        }
         resources { srcDirs = ["src/resources"] }
     }
     test {

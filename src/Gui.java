@@ -2,6 +2,7 @@ import javax.swing.*;
 // for the listeners
 // AWT = "Abstract Window Toolkit"
 import java.awt.event.*;
+import java.util.Date;
 
 public class Gui {
 	private static final int  WIDTH = 800;
@@ -95,7 +96,7 @@ public class Gui {
 		resvmCreate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "test");
+				JOptionPane.showMessageDialog(null, "test: " + rm.CreateReservation(null, null, 0, new Date(), new Date()));
 			}
 		});
 	}

@@ -7,8 +7,9 @@ public class CustomerManager {
 	private static String url = "jdbc:sqlite:hotel.sqlite";
 	private Connection conn = null;
 
-	public CustomerManager() {
+	public CustomerManager(Connection conn) {
 		customers = new ArrayList<>();
+		this.conn=conn;
 		try {
 			conn = DriverManager.getConnection(url);
 			Statement stmt = conn.createStatement();
@@ -23,13 +24,26 @@ public class CustomerManager {
 			//);
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'customers' (\n"
 			+ " 'id'          INTEGER NOT NULL UNIQUE,\n"
-			+ "	'firstName'   VARCHAR(255) NOT NULL,\n"
-			+ "	'lastName'    VARCHAR(255) NOT NULL,\n"
-			+ "	'phoneNumber' VARCHAR(255) NOT NULL,\n"
-			+ "	'email'       VARCHAR(255),\n"
-			+ "	'address'     VARCHAR(255) NOT NULL,\n"
+			+ " 'firstName'   VARCHAR(255) NOT NULL,\n"
+			+ " 'lastName'    VARCHAR(255) NOT NULL,\n"
+			+ " 'phoneNumber' VARCHAR(255) NOT NULL,\n"
+			+ " 'email'       VARCHAR(255),\n"
+			+ " 'address'     VARCHAR(255) NOT NULL,\n"
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String firstName = rs.getString("firstName");
+				String lastName = rs.getString("lastName");
+				String phoneNumber = rs.getString("phoneNumber");
+				String email = rs.getString("email");
+				String address = rs.getString("address");
+				Customer customer = new Customer(id, firstName, lastName, phoneNumber, email, address);
+				customers.add(customer);
+			}
+			rs.close();
 		} catch (SQLException ex) {
 			// handle any errors
 			System.out.println("CustomerManager");

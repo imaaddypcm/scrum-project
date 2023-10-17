@@ -1,3 +1,5 @@
+package backend;
+
 public class PaymentInformation {
     private int id;
     private String cardNumber;

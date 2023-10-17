@@ -23,7 +23,7 @@ dependencies {
 
 gretty {
     httpPort = 8080
-    contextPath = '/java-guide'
+    contextPath = '/'
 }
 
 tasks.named('test') {

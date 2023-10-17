@@ -1,3 +1,4 @@
+package backend;
 import java.util.Date;
 
 public class Reservation {
@@ -18,5 +19,12 @@ public class Reservation {
 		this.startDate = start;
 		this.endDate = end;
 		this.numberOfGuests = numberOfGuests;
+	}
+
+	public int getId(){
+		return id;
+	}
+	public Customer getCustomer(){
+		return customer;
 	}
 }

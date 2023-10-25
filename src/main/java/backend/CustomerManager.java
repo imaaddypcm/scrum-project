@@ -12,7 +12,6 @@ public class CustomerManager {
 		customers = new ArrayList<>();
 		this.conn=conn;
 		try {
-			conn = DriverManager.getConnection(url);
 			Statement stmt = conn.createStatement();
 			//CREATE TABLE "customers" (
 			//	"ID"	INTEGER NOT NULL UNIQUE,

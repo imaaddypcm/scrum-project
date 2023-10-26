@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +9,29 @@
     <title>Reservation Form</title>
 </head>
 <body>
+    <h1>List of Rooms</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Rules</th>
+            <th>ID</th>
+        </tr>
+        <c:forEach items="${roomTypes}" var="roomType">
+            <tr>
+                <td>${roomType.name}</td>
+                <td>${roomType.description}</td>
+                <td>${roomType.rules}</td>
+                <td>${roomType.id}</td>
+            </tr>
+        </c:forEach>
+    </table>
+
     <h1>Reservation Form</h1>
     <form action="/process-reservation" method="post">
+        <label for="roomType">RoomType:</label>
+        <input type="text" id="roomType" name="roomType" required><br>
+
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required><br>
 

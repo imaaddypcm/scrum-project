@@ -5,17 +5,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-
     <servlet>
        <servlet-name>room-list</servlet-name>
        <servlet-class>server.RoomListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>room-list</servlet-name>
-        <url-pattern>/room-list.html</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
    <servlet>

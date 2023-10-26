@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomManager{
+public class RoomManager {
 	private ArrayList<Room> rooms;
 	private Connection conn = null;
 	public RoomManager(Connection conn){

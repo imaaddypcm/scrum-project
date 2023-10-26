@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List" %>
 <%@ page import="backend.Room" %>
 <!DOCTYPE html>
@@ -11,6 +12,7 @@
 </head>
 <body>
     <h1>List of Rooms</h1>
+    <p>${name}</p>
     <table border="1">
         <tr>
             <th>Room Number</th>
@@ -22,8 +24,6 @@
             <tr>
                 <td>${room.roomNumber}</td>
                 <td>${room.roomType}</td>
-                <td>${room.price}</td>
-                <td>${room.description}</td>
             </tr>
         </c:forEach>
     </table>

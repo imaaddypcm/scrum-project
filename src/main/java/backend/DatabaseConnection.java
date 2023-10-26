@@ -1,0 +1,23 @@
+package backend;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseConnection {
+	private static Connection conn = null;
+	private static String url = "jdbc:sqlite:hotel.sqlite";
+	public static Connection getConnection() {
+		if (conn == null) {
+			try {
+				conn = DriverManager.getConnection(url);
+			} catch (SQLException ex) {
+				System.out.println("Failed to connect to database:");
+				System.out.println("SQLException: " + ex.getMessage());
+				System.out.println("SQLState: " + ex.getSQLState());
+				System.out.println("VendorError: " + ex.getErrorCode());
+			}
+		}
+		return conn;
+	}
+}

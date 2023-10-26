@@ -4,11 +4,14 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.http.HttpServletResponse;
 import backend.Room;
+import backend.DatabaseConnection;
 import java.util.ArrayList;
+import java.sql.Connection;
 
 public class RoomListServlet extends HttpServlet {
 	public void init() throws ServletException {
 		//getServletContext()
+		Connection conn = DatabaseConnection.getConnection();
 	}
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

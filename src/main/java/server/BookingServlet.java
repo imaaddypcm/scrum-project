@@ -5,10 +5,12 @@ import javax.servlet.http.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.sql.Connection;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import backend.*;
 
-public class RoomListServlet extends HttpServlet {
+public class BookingServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
@@ -29,8 +31,11 @@ public class RoomListServlet extends HttpServlet {
 		//HttpSession session = request.getSession();
 		String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		request.setAttribute("today", LocalDate.now().format(formatter));
+		request.setAttribute("tomorrow", LocalDate.now().plusDays(1).format(formatter));
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/reservation-form.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/booking.jsp");
 		try {
 			rd.forward(request, response);
 		} catch (ServletException e) {

@@ -18,19 +18,19 @@ For example, the form for payment information could have a different structure t
     <form id="bookingForm" action="/" method="post">
         <div class="form-group">
             <label for="checkin">Check In:</label>
-            <input type="date" id="start" name="checkin" value="${startTime}"/>
+            <input type="date" name="checkin" value="${today}"/>
         </div>
         <div class="form-group">
             <label for="checkout">Check Out:</label>
-            <input type="date" id="end" name="checkout" value="${endTime}"/>
+            <input type="date" name="checkout" value="${tomorrow}"/>
         </div>
         <div class="form-group">
             <label for="numGuests">Number of Guests:</label>
-            <input type="number" name="numGuests" id="numGuests" step="1"/>
+            <input type="number" name="numGuests" min="1" max="4" value="1"/>
         </div>
         <div class="form-group">
             <label for="numRooms">Number of Rooms:</label>
-            <input type="number" name="numRooms" id="numRooms" step="1"/>
+            <input type="number" name="numRooms" min="1" value="1"/>
         </div>
         <input type="submit" value="Search">
     </form>

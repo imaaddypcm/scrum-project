@@ -1,0 +1,34 @@
+#bookingForm {
+	display: flex;
+	flex-direction: row;
+	border-style: ridge;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	margin-right: 10px;
+	text-align: center;
+}
+
+/*
+#checkin {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	margin-bottom: 10px;
+}
+
+#checkin label {
+	font-weight: bold;
+}
+
+#checkin input {
+	padding: 5px;
+	margin: 5px 0;
+}
+*/
+

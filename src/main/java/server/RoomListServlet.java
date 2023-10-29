@@ -24,11 +24,10 @@ public class RoomListServlet extends HttpServlet {
 		rtypeman = new RoomTypeManager(conn);
 		pman = new PaymentInfoManager(conn);
 	}
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//TODO Manage state for each individual user
-		HttpSession session = request.getSession(true);
 
+	private void sendBooking(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		//HttpSession session = request.getSession();
+		String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/reservation-form.jsp");
@@ -38,13 +37,19 @@ public class RoomListServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		sendBooking(request, response);
+	}
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String roomType = request.getParameter("roomType");
+		sendBooking(request, response);
+		/*String roomType = request.getParameter("roomType");
         String firstName = request.getParameter("firstName");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h1>" + roomType + "</h1>");
-        out.println("<p>" + "Ahoy ahoy!" + "</p>");
+        out.println("<p>" + "Ahoy ahoy!" + "</p>");*/
 	}
 }

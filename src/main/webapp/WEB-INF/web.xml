@@ -6,11 +6,11 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <servlet>
-       <servlet-name>BookingFourm</servlet-name>
+       <servlet-name>BookingForm</servlet-name>
        <servlet-class>server.BookingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>BookingFourm</servlet-name>
+        <servlet-name>BookingForm</servlet-name>
         <url-pattern></url-pattern>
     </servlet-mapping>
 

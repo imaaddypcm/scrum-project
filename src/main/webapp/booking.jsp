@@ -15,7 +15,8 @@ COMMENTS:
     Different forms may need to be implemented for better organization of inputs:
 For example, the form for payment information could have a different structure than the one for reservation details
 -->
-    <form id="bookingForm" action="/" method="post">
+<div>
+    <form id="bookingForm" action="/" method="get">
         <div class="form-group">
             <label for="checkin">Check In:</label>
             <input type="date" name="checkin" value="${today}"/>
@@ -34,8 +35,53 @@ For example, the form for payment information could have a different structure t
         </div>
         <input type="submit" value="Search">
     </form>
+</div>
 
-    <h1>List of Rooms</h1>
+<div class="support-grid"></div>
+<div class="band">
+<c:forEach items="${roomTypes}" var="roomType">
+  <div class="item-4">
+    <div class="card">
+      <div class="thumb" style="background-image: url(/static/roomTest.jpg);"></div>
+      <article>
+        <h1>${roomType.name}</h1>
+        <p></p>
+        <span>${roomType.description}</span>
+      </article>
+      <div class="book">
+        <a href="#buttonpressed"><button type="button"> Book Room</button></a>
+      </div>
+    </div>
+  </div>
+</c:forEach>
+</div>
+
+<div id="roomList">
+    <div class="roomListHeader">
+        <h3>List of Rooms</h3>
+    </div>
+    <div>
+        <c:forEach items="${roomTypes}" var="roomType">
+            <div class="roomListEntry">
+                <div class="roomDisplayImageContainer">
+                    <img class="roomDisplayImage" src="/static/roomTest.jpg" alt="room picture">
+                </div>
+                <div class="roomTypeInfo">
+                    <h3 style="clear:left">Deluxe</h3>
+                    <div>
+                        <p>Hello world</p>
+                    </div>
+                </div>
+                <div class="roomBookContainer">
+                    <button type="button"> Book Room</button>
+                </div>
+            <!--${roomType.id}-->
+            <!--${roomType.rules}-->
+            </div>
+        </c:forEach>
+    </div>
+</div>
+
     <table border="1">
         <tr>
             <th>Name</th>
@@ -45,10 +91,10 @@ For example, the form for payment information could have a different structure t
         </tr>
         <c:forEach items="${roomTypes}" var="roomType">
             <tr>
+                <td>${roomType.id}</td>
                 <td>${roomType.name}</td>
                 <td>${roomType.description}</td>
                 <td>${roomType.rules}</td>
-                <td>${roomType.id}</td>
             </tr>
         </c:forEach>
     </table>
@@ -181,39 +227,26 @@ For example, the form for payment information could have a different structure t
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select><br>
-        <input type="number" id="numAdults" name="numAdults" required><br>
+        <input type="number" id="numAdults" name="numAdults" ><br>
         <label for="numChild">Number of Children</label>
             <select name="numChild" id="numChild">
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 </select><br>
-            <input type="number" id="numChild" name="numChild" required><br>
+            <input type="number" id="numChild" name="numChild" ><br>
         <label for="numSeniors">Number of Seniors</label>
             <select name="numSeniors" id = "numSeniors">
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 </select><br>
-            <input type="number" id="numSeniors" name="numSeniors" required><br>
-        <label for="numGuests">Number of Guests</label>
-            <select name="numGuests" id="numGuests"></select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                </select><br>
-            <input type="number" id="numGuests" name="numGuests" required><br>
-        <label for="numRooms">Number of Rooms</label>
-            <select name="numRooms" id="numRooms">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                </select><br>
-        <input type="number" id="numRooms" name="numRooms" required><br>
+            <input type="number" id="numSeniors" name="numSeniors" ><br>
+
         <input type="submit" value="Next">
     </form>
 

@@ -44,19 +44,19 @@ For example, the form for payment information could have a different structure t
 <div class="support-grid"></div>
 <div class="band">
 <c:forEach items="${roomTypes}" var="roomType">
-  <div class="item-4">
-    <div class="card">
-        <img src="/static/roomTest.jpg" alt="Room Image">
-      <article>
-        <h1>${roomType.name}</h1>
-        <p></p>
-        <span>${roomType.description}</span>
-      </article>
-      <div class="book">
-        <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button type="button"> Book Room</button></a>
-      </div>
+    <div class="item-4">
+        <div class="card">
+            <img src="/static/roomTest.jpg" alt="Room Image">
+            <article>
+                <h1>${roomType.name}</h1>
+                <p></p>
+                <span>${roomType.description}</span>
+            </article>
+            <div class="book">
+                <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button type="button"> Book Room</button></a>
+            </div>
+        </div>
     </div>
-  </div>
 </c:forEach>
 </div>
 

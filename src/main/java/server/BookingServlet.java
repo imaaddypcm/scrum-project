@@ -3,7 +3,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
@@ -27,19 +27,65 @@ public class BookingServlet extends HttpServlet {
 		pman = new PaymentInfoManager(conn);
 	}
 
+	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
+		HashMap<String, String> data = new HashMap<String, String>();
+
+		if (source == null)
+			return data;
+
+		final String[] arrParameters = source.split("&");
+		for (final String tempParameterString : arrParameters) {
+
+			final String[] arrTempParameter = tempParameterString
+					.split("=");
+
+			if (arrTempParameter.length >= 2) {
+				final String parameterKey = arrTempParameter[0];
+				final String parameterValue = arrTempParameter[1];
+				data.put(parameterKey, parameterValue);
+			} else {
+				final String parameterKey = arrTempParameter[0];
+				data.put(parameterKey, "");
+			}
+		}
+
+		return data;
+	}
 	private void sendBooking(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//HttpSession session = request.getSession();
-		String roomType = request.getParameter("roomType");
+		//String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		request.setAttribute("today", LocalDate.now().format(formatter));
-		request.setAttribute("tomorrow", LocalDate.now().plusDays(1).format(formatter));
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
+
+		HashMap<String,String> hm = convertToQueryStringToHashMap(request.getQueryString());
+		System.out.println(hm);
+
+		if (hm.containsKey("checkin"))
+			request.setAttribute("checkin", hm.get("checkin"));
+		else
+			request.setAttribute("checkin", LocalDate.now().format(formatter)); // today
+
+		if (hm.containsKey("checkout"))
+			request.setAttribute("checkout", hm.get("checkout")); // tomorrow
+		else
+			request.setAttribute("checkout", LocalDate.now().plusDays(1).format(formatter)); // tomorrow
+
+		if (hm.containsKey("numGuests"))
+			request.setAttribute("numGuests", hm.get("numGuests"));
+		else
+			request.setAttribute("numGuests", 1);
+
+		if (hm.containsKey("numRooms"))
+			request.setAttribute("numRooms", hm.get("numRooms"));
+		else
+			request.setAttribute("numRooms", 1);
+
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/booking.jsp");
 		try {
 			rd.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
+		} catch (ServletException ex) {
+			ex.printStackTrace();
 		}
 	}
 

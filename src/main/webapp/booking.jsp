@@ -15,28 +15,32 @@ COMMENTS:
     Different forms may need to be implemented for better organization of inputs:
 For example, the form for payment information could have a different structure than the one for reservation details
 -->
+
 <div>
     <form id="bookingForm" action="/" method="get">
         <div class="form-group">
             <label for="checkin">Check In:</label>
-            <input type="date" name="checkin" value="${today}"/>
+            <input type="date" name="checkin" value="${checkin}"/>
         </div>
         <div class="form-group">
             <label for="checkout">Check Out:</label>
-            <input type="date" name="checkout" value="${tomorrow}"/>
+            <input type="date" name="checkout" value="${checkout}"/>
         </div>
         <div class="form-group">
             <label for="numGuests">Number of Guests:</label>
-            <input type="number" name="numGuests" min="1" max="4" value="1"/>
+            <input type="number" name="numGuests" min="1" max="4" value="${numGuests}"/>
         </div>
         <div class="form-group">
             <label for="numRooms">Number of Rooms:</label>
-            <input type="number" name="numRooms" min="1" value="1"/>
+            <input type="number" name="numRooms" min="1" value="${numRooms}"/>
         </div>
         <input type="submit" value="Search">
     </form>
 </div>
 
+<div class="roomListHeader">
+    <h3>List of Rooms</h3>
+</div>
 <div class="support-grid"></div>
 <div class="band">
 <c:forEach items="${roomTypes}" var="roomType">
@@ -49,37 +53,11 @@ For example, the form for payment information could have a different structure t
         <span>${roomType.description}</span>
       </article>
       <div class="book">
-        <a href="#buttonpressed"><button type="button"> Book Room</button></a>
+        <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button type="button"> Book Room</button></a>
       </div>
     </div>
   </div>
 </c:forEach>
-</div>
-
-<div id="roomList">
-    <div class="roomListHeader">
-        <h3>List of Rooms</h3>
-    </div>
-    <div>
-        <c:forEach items="${roomTypes}" var="roomType">
-            <div class="roomListEntry">
-                <div class="roomDisplayImageContainer">
-                    <img class="roomDisplayImage" src="/static/roomTest.jpg" alt="room picture">
-                </div>
-                <div class="roomTypeInfo">
-                    <h3 style="clear:left">Deluxe</h3>
-                    <div>
-                        <p>Hello world</p>
-                    </div>
-                </div>
-                <div class="roomBookContainer">
-                    <button type="button"> Book Room</button>
-                </div>
-            <!--${roomType.id}-->
-            <!--${roomType.rules}-->
-            </div>
-        </c:forEach>
-    </div>
 </div>
 
     <table border="1">

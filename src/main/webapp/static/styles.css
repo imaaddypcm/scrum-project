@@ -4,6 +4,7 @@
 	border-style: ridge;
 	align-items: center;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .roomListHeader {
@@ -73,16 +74,13 @@ a.button {
 	display: flex;
 	flex-direction: column;
 	width: 90%;
-	height: 90%;
+	height: 60%;
 	max-width: 1240px;
 	max-height: 1240px;
 	margin: 0 auto;
 }
 
   @media only screen and (min-width: 500px) {
-	.band {
-	  grid-template-columns: 1fr 1fr;
-	}
 	.item-1 {
 	  grid-column: 1/ span 2;
 	}
@@ -91,17 +89,11 @@ a.button {
 	}
   }
 
-  @media only screen and (min-width: 850px) {
-	.band {
-	  grid-template-columns: 1fr 1fr 1fr 1fr;
-	}
-  }
-
 
   /* card */
 
   .card {
-	min-height: 100%;
+	min-height: 80%;
 	background: white;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	display: flex;
@@ -128,7 +120,7 @@ a.button {
   }
 
   .card .thumb {
-	padding-bottom: 60%;
+	padding-bottom: 30%;
 	background-size: cover;
 	background-position: center center;
   }
@@ -157,7 +149,13 @@ a.button {
 	margin: 2em 0 0 0;
   }
 
+  .card img {
+	width: 30%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	justify-content: center;
+  }
   .thumb {
-	width: 50%;
-	height: 50%;
+	width: 30rem;
   }

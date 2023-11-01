@@ -46,7 +46,7 @@ For example, the form for payment information could have a different structure t
 <c:forEach items="${roomTypes}" var="roomType">
   <div class="item-4">
     <div class="card">
-      <div class="thumb" style="background-image: url(/static/roomTest.jpg);"></div>
+        <img src="/static/roomTest.jpg" alt="Room Image">
       <article>
         <h1>${roomType.name}</h1>
         <p></p>

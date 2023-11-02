@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 import backend.*;
 
-public class BookingServlet extends HttpServlet {
+public class ReserveServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
@@ -18,7 +18,6 @@ public class BookingServlet extends HttpServlet {
 	private RoomTypeManager rtypeman = null;
 
 	public void init() throws ServletException {
-		//getServletContext()
 		cman = Manager.getCustomerManager();
 		resman = Manager.getReservationManager();
 		rooman = Manager.getRoomManager();
@@ -59,48 +58,43 @@ public class BookingServlet extends HttpServlet {
 		return false;
 	}
 
-	private void sendBooking(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//HttpSession session = request.getSession();
 		//String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
 
 		HashMap<String,String> hm = convertToQueryStringToHashMap(request.getQueryString());
-		System.out.println(hm);
 
-		if (!forwardAttribute(request, hm, "checkin"))
-			request.setAttribute("checkin", LocalDate.now().format(formatter)); // today
+		forwardAttribute(request, hm, "room");
+		forwardAttribute(request, hm, "numRooms");
+		forwardAttribute(request, hm, "numGuests");
+		forwardAttribute(request, hm, "checkin");
+		forwardAttribute(request, hm, "checkout");
 
-		if (!forwardAttribute(request, hm, "checkout"))
-			request.setAttribute("checkout", LocalDate.now().plusDays(1).format(formatter)); // tomorrow
-
-		if (!forwardAttribute(request, hm, "numGuests"))
-			request.setAttribute("numGuests", 1);
-
-		if (!forwardAttribute(request, hm, "numRooms"))
-			request.setAttribute("numRooms", 1);
-
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/booking.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/reserve.jsp");
 		try {
 			rd.forward(request, response);
 		} catch (ServletException ex) {
 			ex.printStackTrace();
 		}
 	}
-
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		sendBooking(request, response);
-	}
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		sendBooking(request, response);
-		/*String roomType = request.getParameter("roomType");
-        String firstName = request.getParameter("firstName");
+		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);
+		String roomType = request.getParameter("roomType");
+		String numRooms = request.getParameter("numRooms");
+		String numGuests = request.getParameter("numGuests");
+		String checkin = request.getParameter("checkin");
+		String checkout = request.getParameter("checkout");
+		//resman.CreateReservation(null, request.getParameter("roomType"), request.getParameter("numRooms"));
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h1>" + roomType + "</h1>");
-        out.println("<p>" + "Ahoy ahoy!" + "</p>");*/
+		out.println("<h1>" + numRooms + "</h1>");
+		out.println("<h1>" + numGuests + "</h1>");
+		out.println("<h1>" + checkin + "</h1>");
+		out.println("<h1>" + checkout + "</h1>");
+		out.println("<p>" + "Ahoy ahoy!" + "</p>");
 	}
 }

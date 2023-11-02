@@ -14,6 +14,15 @@
         <url-pattern></url-pattern>
     </servlet-mapping>
 
+    <servlet>
+       <servlet-name>ReservationForm</servlet-name>
+       <servlet-class>server.ReserveServlet</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ReservationForm</servlet-name>
+        <url-pattern>/reserve</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/</url-pattern>

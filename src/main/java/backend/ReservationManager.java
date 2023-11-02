@@ -12,30 +12,17 @@ public class ReservationManager {
 		this.conn = conn;
 		try {
 			Statement stmt = conn.createStatement();
-			//CREATE TABLE "reservations" (
-			//	"ID"	INTEGER NOT NULL UNIQUE,
-			//	"numberOfRooms"	INTEGER,
-			//	"numberOfGuests"	INTEGER,
-			//	"startDate"	DATE NOT NULL,
-			//	"endDate"	DATE NOT NULL,
-			//	"customerID"	INTEGER,
-			//	"rooms"	VARCHAR(255),
-			//	"paymentInfo"	INTEGER NOT NULL,
-			//	FOREIGN KEY("customerID") REFERENCES "customers"("ID"),
-			//	FOREIGN KEY("paymentInfo") REFERENCES "paymentInformation"("ID"),
-			//	PRIMARY KEY("ID")
-			//);
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'reservations' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
-			+ " 'numberOfRooms'  INTEGER,\n"
-			+ " 'numberOfGuests' INTEGER,\n"
-			+ " 'rooms'          VARCHAR(255),\n"
+			+ " 'numberOfRooms'  INTEGER NOT NULL,\n"
+			+ " 'numberOfGuests' INTEGER NOT NULL,\n"
+			+ " 'roomType'       INTEGER NOT NULL,\n"
 			+ " 'startDate'      DATE NOT NULL,\n"
 			+ " 'endDate'        DATE NOT NULL,\n"
 			+ " 'customerID'     INTEGER NOT NULL,\n"
-			+ " 'paymentInfo'    INTEGER NOT NULL,\n"
+			+ " 'billingID'      INTEGER NOT NULL,\n"
 			+ " FOREIGN KEY('customerID') REFERENCES 'customers'('id'),\n"
-			+ " FOREIGN KEY('paymentInfo') REFERENCES 'paymentInformation'('id'),\n"
+			+ " FOREIGN KEY('billingID') REFERENCES 'billing'('id'),\n"
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
@@ -62,16 +49,16 @@ public class ReservationManager {
 		}
 	}
 
-	public Reservation CreateReservation(Customer customer, Room roomsReserved[], int numberOfGuests, Date startTime, Date endTime) {
+	public Reservation CreateReservation(Customer customer, int roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
 		Reservation reservation = null;
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, rooms, startDate, endDate, customerID, paymentInfo)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, roomType, startDate, endDate, customerID, billingID)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;");
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, numberOfRooms);
 			pstmt.setInt(2, numberOfGuests);
-			pstmt.setString(3, "");
+			pstmt.setInt(3, roomType);
 			pstmt.setDate(4, startDate);
 			pstmt.setDate(5, endDate);
 			pstmt.setInt(6, 0);
@@ -85,7 +72,7 @@ public class ReservationManager {
 			rs.close();
 
 			System.out.println("=> <Reservation> Id: "+id+" Start: "+start+" End: "+end);
-			reservation = new Reservation(id, customer, roomsReserved, numberOfGuests, start, end);
+			reservation = new Reservation(id, customer, roomType, numberOfRooms, numberOfGuests, start, end);
 			reservations.add(reservation);
 			pstmt.close();
 		} catch (SQLException ex) {

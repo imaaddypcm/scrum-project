@@ -12,17 +12,7 @@ public class PaymentInfoManager {
 		this.conn = conn;
 		try {
 			Statement stmt = conn.createStatement();
-			//CREATE TABLE "paymentInformation" (
-			//	"ID"	INTEGER NOT NULL UNIQUE,
-			//	"cardNumber"	VARCHAR(255) NOT NULL,
-			//	"cardExpiration"	VARCHAR(255) NOT NULL,
-			//	"ccvNumber"	VARCHAR(255) NOT NULL,
-			//	"nameOnCard"	VARCHAR(255) NOT NULL,
-			//	"cardType"	VARCHAR(255) NOT NULL,
-			//	"zipCode"	VARCHAR(255),
-			//	PRIMARY KEY("ID" AUTOINCREMENT)
-			//);
-			stmt.execute("CREATE TABLE IF NOT EXISTS 'paymentInformation' (\n"
+			stmt.execute("CREATE TABLE IF NOT EXISTS 'billing' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
 			+ " 'cardNumber'     VARCHAR(255) NOT NULL UNIQUE,\n"
 			+ "	'cardExpiration' VARCHAR(255) NOT NULL,\n"
@@ -48,7 +38,7 @@ public class PaymentInfoManager {
 			rs.close();
 		} catch (SQLException ex) {
 			// handle any errors
-            System.out.println("PaymentInfoManager");
+            System.out.println("BillingManager");
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
@@ -58,7 +48,7 @@ public class PaymentInfoManager {
 	PaymentInformation CreatePaymentInformation(String cardNumber, String cardExpiration, String ccvNumber, String nameOnCard, String cardType, String zipCode) {
 		PaymentInformation paymentInformation = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO paymentInformation (cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
 
 			//Insert dat
@@ -73,13 +63,13 @@ public class PaymentInfoManager {
 			int id = rs.getInt("id");
 			rs.close();
 
-			System.out.println("=> <PaymentInfo> Id: "+id);
+			System.out.println("=> <Billing> Id: "+id);
 			paymentInformation = new PaymentInformation(id, cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode);
 			paymentInfos.add(paymentInformation);
 
 			pstmt.close();
 		} catch (SQLException ex) {
-			System.out.println("createPaymentInformation");
+			System.out.println("createBilling");
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());

@@ -4,18 +4,20 @@ import java.util.Date;
 public class Reservation {
 	private int id;
 	private Customer customer;
-	private Room rooms[];
+	private int roomType;
+	private int numberOfRooms;
+	private int numberOfGuests;
 	private Date startDate;
 	private Date endDate;
-	private int numberOfGuests;
 	//Room roomsReserved[];
 	//Customer customer;
 
 
-	public Reservation(int id, Customer customer, Room rooms[], int numberOfGuests, Date start, Date end){
+	public Reservation(int id, Customer customer, int roomType, int numberOfRooms, int numberOfGuests, Date start, Date end){
 		this.id = id;
 		this.customer = customer;
-		this.rooms = rooms;
+		this.roomType = roomType;
+		this.numberOfRooms = numberOfRooms;
 		this.startDate = start;
 		this.endDate = end;
 		this.numberOfGuests = numberOfGuests;
@@ -24,6 +26,7 @@ public class Reservation {
 	public int getId(){
 		return id;
 	}
+
 	public Customer getCustomer(){
 		return customer;
 	}

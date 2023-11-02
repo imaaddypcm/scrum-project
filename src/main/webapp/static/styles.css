@@ -1,163 +1,110 @@
-#bookingForm {
-	display: flex;
-	flex-direction: row;
-	border-style: ridge;
-	align-items: center;
-	justify-content: center;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
-.roomListHeader {
-	border-style: ridge;
-	background-color: #AAA;
+.navbar {
+    background-color: #0073e6e1;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
 }
 
-.roomDisplayImage {
-	width: 500px;
+.navbar-logo {
+    max-width: 80px;
 }
 
-.roomListEntry {
-	min-height: 100%;
-	background: white;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: row;
-	flex-flow: row;
-	text-decoration: none;
-	color: #444;
-	position: relative;
-	top: 0;
-	transition: all .1s ease-in;
+.navbar-links {
+    margin-right: 20px;
 }
 
-.roomTypeInfo {
-	display: flex;
-	margin-left: auto;
-}
-
-.form-group {
-	display: flex;
-	flex-direction: column;
-	margin-right: 10px;
-	text-align: center;
-}
-
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
+.navbar a {
+    color: #fff;
     text-decoration: none;
-    color: initial;
+    margin: 0 20px;
 }
+
+.room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.room {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.room img {
+    max-width: 400px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow: 5px 5px 5px #a7a7a76c; /* Add a shadow */
+}
+
+.room-content {
+    padding: 50px; /* Add padding for spacing */
+}
+
+.room h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.room p {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #005dbb;
+}
+
+.search-form {
+    background-color: #56aafff0;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.search-form input, .search-form select {
+    padding: 5px;
+    margin: 5px;
+}
+
 
 /*
-#checkin {
-	display: flex;
-	flex-direction: column;
-	width: 200px;
-	margin-bottom: 10px;
-}
-
-#checkin label {
-	font-weight: bold;
-}
-
-#checkin input {
-	padding: 5px;
-	margin: 5px 0;
-}
+FOR RESERVATION FORM
 */
-
-
-.band {
-	display: flex;
-	flex-direction: column;
-	width: 90%;
-	height: 90%;
-	max-width: 1240px;
-	max-height: 1240px;
-	margin: 0 auto;
-}
-
-  @media only screen and (min-width: 500px) {
-	.band {
-	  grid-template-columns: 1fr 1fr;
-	}
-	.item-1 {
-	  grid-column: 1/ span 2;
-	}
-	.item-1 h1 {
-	  font-size: 30px;
-	}
-  }
-
-  @media only screen and (min-width: 850px) {
-	.band {
-	  grid-template-columns: 1fr 1fr 1fr 1fr;
-	}
-  }
-
-
-  /* card */
-
-  .card {
-	min-height: 100%;
-	background: white;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: row;
-	flex-flow: row;
-	text-decoration: none;
-	color: #444;
-	position: relative;
-	top: 0;
-	transition: all .1s ease-in;
-  }
-
-  .card:hover {
-	top: -2px;
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .card article {
-	padding: 20px;
-	display: flex;
-	flex: 1;
-	justify-content: space-between;
-	flex-direction: column;
-  }
-
-  .card .thumb {
-	padding-bottom: 60%;
-	background-size: cover;
-	background-position: center center;
-  }
-
-  .card p {
-	flex: 1;
-	/* make p grow to fill available space*/
-	line-height: 1.4;
-  }
-
-
-  /* typography */
-
-  h1 {
-	font-size: 20px;
-	margin: 0;
-	color: #333;
-  }
-
-  .card span {
-	font-size: 12px;
-	font-weight: bold;
-	color: #999;
-	text-transform: uppercase;
-	letter-spacing: .05em;
-	margin: 2em 0 0 0;
-  }
-
-  .thumb {
-	width: 50%;
-	height: 50%;
-  }

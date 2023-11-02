@@ -12,24 +12,6 @@
 	background-color: #AAA;
 }
 
-.roomDisplayImage {
-	width: 500px;
-}
-
-.roomListEntry {
-	min-height: 100%;
-	background: white;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: row;
-	flex-flow: row;
-	text-decoration: none;
-	color: #444;
-	position: relative;
-	top: 0;
-	transition: all .1s ease-in;
-}
-
 .roomTypeInfo {
 	display: flex;
 	margin-left: auto;
@@ -40,15 +22,6 @@
 	flex-direction: column;
 	margin-right: 10px;
 	text-align: center;
-}
-
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    color: initial;
 }
 
 /*
@@ -69,6 +42,38 @@ a.button {
 }
 */
 
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+
+.book .button:hover {
+	background-color: #4CAF50;
+	color: white;
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.book .button {
+	background-color: white;
+	color: black;
+	border: 2px solid #4CAF50;
+	border-radius: 15px;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .band {
 	display: flex;
@@ -80,19 +85,19 @@ a.button {
 	margin: 0 auto;
 }
 
-  @media only screen and (min-width: 500px) {
+@media only screen and (min-width: 500px) {
 	.item-1 {
-	  grid-column: 1/ span 2;
+		grid-column: 1/ span 2;
 	}
 	.item-1 h1 {
-	  font-size: 30px;
+		font-size: 30px;
 	}
-  }
+}
 
 
-  /* card */
+/* card */
 
-  .card {
+.card {
 	min-height: 80%;
 	background: white;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -104,58 +109,54 @@ a.button {
 	position: relative;
 	top: 0;
 	transition: all .1s ease-in;
-  }
+}
 
-  .card:hover {
-	top: -2px;
-	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  .card article {
+.card article {
 	padding: 20px;
 	display: flex;
 	flex: 1;
 	justify-content: space-between;
 	flex-direction: column;
-  }
+}
 
-  .card .thumb {
+.card .thumb {
 	padding-bottom: 30%;
 	background-size: cover;
 	background-position: center center;
-  }
+}
 
-  .card p {
+.card p {
 	flex: 1;
 	/* make p grow to fill available space*/
 	line-height: 1.4;
-  }
+}
 
 
-  /* typography */
+/* typography */
 
-  h1 {
+h1 {
 	font-size: 20px;
 	margin: 0;
 	color: #333;
-  }
+}
 
-  .card span {
+.card span {
 	font-size: 12px;
 	font-weight: bold;
 	color: #999;
 	text-transform: uppercase;
 	letter-spacing: .05em;
 	margin: 2em 0 0 0;
-  }
+}
 
-  .card img {
+.card img {
 	width: 30%;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	justify-content: center;
-  }
-  .thumb {
+}
+
+.thumb {
 	width: 30rem;
-  }
+}

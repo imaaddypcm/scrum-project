@@ -2,14 +2,16 @@ package backend;
 import java.util.Date;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class CustomerManager {
-	private ArrayList<Customer> customers;
+	private Map<Integer, Customer> customers;
 	private static String url = "jdbc:sqlite:hotel.sqlite";
 	private Connection conn = null;
 
 	public CustomerManager(Connection conn) {
-		customers = new ArrayList<>();
+		customers = new HashMap<Integer, Customer>();
 		this.conn=conn;
 		try {
 			Statement stmt = conn.createStatement();
@@ -27,12 +29,12 @@ public class CustomerManager {
 			+ " 'firstName'   VARCHAR(255) NOT NULL,\n"
 			+ " 'lastName'    VARCHAR(255) NOT NULL,\n"
 			+ " 'phoneNumber' VARCHAR(255) NOT NULL,\n"
-			+ " 'email'       VARCHAR(255),\n"
+			+ " 'email'       VARCHAR(255) NOT NULL,\n"
 			+ " 'address'     VARCHAR(255) NOT NULL,\n"
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
@@ -41,7 +43,8 @@ public class CustomerManager {
 				String email = rs.getString("email");
 				String address = rs.getString("address");
 				Customer customer = new Customer(id, firstName, lastName, phoneNumber, email, address);
-				customers.add(customer);
+				System.out.println("Existing customer id: " + id);
+				customers.put(id, customer);
 			}
 			rs.close();
 		} catch (SQLException ex) {
@@ -51,14 +54,45 @@ public class CustomerManager {
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
+		System.out.println(customers);
 	}
 
-	public Customer CreateCustomer(String firstName, String lastName, String phoneNumber, String email, String address){
+	public Customer findOrMake(String firstName, String lastName, String phoneNumber, String email, String address) {
+		Customer customer = null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM customers WHERE email = ?;");
+
+			//Insert data
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				rs.close();
+				System.out.println("<Customer.findOrMake> Found customer id: " + id);
+				return customers.get(id);
+			}
+			rs.close();
+
+			// No sutable canidate found
+			System.out.println("<Customer.findOrMake> Create customer");
+			customer = createCustomer(firstName, lastName, phoneNumber, email, address);
+			pstmt.close();
+
+		} catch (SQLException ex) {
+			System.out.println("<Customer.findOrMake>");
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		return customer;
+	}
+
+	public Customer createCustomer(String firstName, String lastName, String phoneNumber, String email, String address){
 		Customer customer = null;
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO customers (firstName, lastName, phoneNumber, email, address)\n"
-			+ "VALUES (?, ?, ?, ?, ?,) RETURNING *;");
+			+ "VALUES (?, ?, ?, ?, ?) RETURNING *;");
 
 			//Insert dat
 			pstmt.setString(1, firstName);
@@ -73,7 +107,7 @@ public class CustomerManager {
 
 			System.out.println("=> <Customer> Id: "+id+" First: "+firstName+" Last: "+lastName);
 			customer = new Customer(id, firstName, lastName, phoneNumber, email, address);
-			customers.add(customer);
+			customers.put(id, customer);
 			pstmt.close();
 
 		} catch (SQLException ex) {

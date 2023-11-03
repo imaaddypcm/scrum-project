@@ -1,6 +1,6 @@
 package backend;
 
-public class PaymentInformation {
+public class Billing {
     private int id;
     private String cardNumber;
     private String cardExpiration;
@@ -9,12 +9,17 @@ public class PaymentInformation {
     private String cardType;
     private String zipCode;
 
-    public PaymentInformation(int id, String cardNumber, String cardExpiration, String ccvNumber, String nameOnCard, String cardType, String zipCode){
+    public Billing(int id, String cardNumber, String cardExpiration, String ccvNumber, String nameOnCard, String cardType, String zipCode) {
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
         this.ccvNumber = ccvNumber;
         this.nameOnCard = nameOnCard;
         this.cardType = cardType;
         this.zipCode = zipCode;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

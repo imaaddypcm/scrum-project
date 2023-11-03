@@ -29,7 +29,7 @@
             <input type="tel" id="phoneNumber" name="phoneNumber" required>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
 		</div>
 
 		<h1>Payment Details</h1>
@@ -55,8 +55,8 @@
             <label for="cvcNumber">CVC Number:</label>
             <input type="text" id="cvcNumber" name="cvcNumber" required>
 
-			<label for="cvcNumber">Postal Code:</label>
-            <input type="text" id="cvcNumber" name="cvcNumber" required>
+			<label for="postalCode">Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode" required>
 		</div>
 		<input type="submit" value="Submit">
 	</form>

@@ -6,7 +6,7 @@ public class Manager {
 	private static CustomerManager cman = null;
 	private static ReservationManager resman = null;
 	private static RoomManager rooman = null;
-	private static PaymentInfoManager pman = null;
+	private static BillingManager bman = null;
 	private static RoomTypeManager rtypeman = null;
 
 	public static CustomerManager getCustomerManager() {
@@ -41,11 +41,11 @@ public class Manager {
 		return rtypeman;
 	}
 
-	public static PaymentInfoManager getPaymentInfoManager() {
+	public static BillingManager getBillingManager() {
 		Connection conn = DatabaseConnection.getConnection();
-		if (pman == null) {
-			pman = new PaymentInfoManager(conn);
+		if (bman == null) {
+			bman = new BillingManager(conn);
 		}
-		return pman;
+		return bman;
 	}
 }

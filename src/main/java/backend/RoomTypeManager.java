@@ -45,7 +45,7 @@ public class RoomTypeManager {
 
             prs = stmt.executeQuery("SELECT * FROM roomTypes WHERE id = 1");
 			if (!prs.next()) {
-				System.out.println("Te 1");
+				System.out.println("=> Creating room type 1");
 				prs.close();
 				PreparedStatement instmt = conn.prepareStatement("INSERT INTO roomTypes (id, name, description, rules, beds)\n"
 				+ "VALUES (?,?,?,?,?) RETURNING *;");

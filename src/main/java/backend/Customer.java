@@ -12,12 +12,12 @@ public class Customer {
     String zipcode;
     private int id = 0;
 
-    public Customer(int id, String fN, String lN, String pN, String eM, String addr){
-        firstName = fN;
-        lastName = lN;
-        phoneNumber = pN;
-        email = eM;
-        address = addr;
+    public Customer(int id, String firstName, String lastName, String phoneNumber, String email, String address){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
         this.id = id;
     }
 

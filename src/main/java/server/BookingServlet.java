@@ -14,7 +14,7 @@ public class BookingServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
-	private PaymentInfoManager pman = null;
+	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
 
 	public void init() throws ServletException {
@@ -23,7 +23,7 @@ public class BookingServlet extends HttpServlet {
 		resman = Manager.getReservationManager();
 		rooman = Manager.getRoomManager();
 		rtypeman = Manager.getRoomTypeManager();
-		pman = Manager.getPaymentInfoManager();
+		bman = Manager.getBillingManager();
 	}
 
 	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {

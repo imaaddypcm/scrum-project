@@ -3,20 +3,20 @@ package backend;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PaymentInfoManager {
-	private ArrayList<PaymentInformation> paymentInfos;
+public class BillingManager {
+	private ArrayList<Billing> billings;
 	private Connection conn = null;
 
-	public PaymentInfoManager(Connection conn) {
-		paymentInfos = new ArrayList<>();
+	public BillingManager(Connection conn) {
+		billings = new ArrayList<>();
 		this.conn = conn;
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'billing' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
-			+ " 'cardNumber'     VARCHAR(255) NOT NULL UNIQUE,\n"
+			+ " 'cardNumber'     VARCHAR(255) NOT NULL,\n"
 			+ "	'cardExpiration' VARCHAR(255) NOT NULL,\n"
-			+ "	'ccvNumber'      VARCHAR(255),\n"
+			+ "	'cvcNumber'      VARCHAR(255),\n"
 			+ "	'nameOnCard'     VARCHAR(255) NOT NULL,\n"
 			+ "	'cardType'       VARCHAR(255) NOT NULL,\n"
 			+ "	'zipCode'        VARCHAR(255),\n"
@@ -28,12 +28,12 @@ public class PaymentInfoManager {
 				int id = rs.getInt("id");
 				String cardNumber = rs.getString("cardNumber");
 				String cardExpiration = rs.getString("cardExpiration");
-				String ccvNumber = rs.getString("ccvNumber");
+				String cvcNumber = rs.getString("cvcNumber");
 				String nameOnCard = rs.getString("nameOnCard");
 				String cardType = rs.getString("cardType");
 				String zipCode = rs.getString("zipCode");
-				PaymentInformation payment = new PaymentInformation(id, cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode);
-				paymentInfos.add(payment);
+				Billing payment = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+				billings.add(payment);
 			}
 			rs.close();
 		} catch (SQLException ex) {
@@ -45,16 +45,16 @@ public class PaymentInfoManager {
 		}
 	}
 
-	PaymentInformation CreatePaymentInformation(String cardNumber, String cardExpiration, String ccvNumber, String nameOnCard, String cardType, String zipCode) {
-		PaymentInformation paymentInformation = null;
+	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode) {
+		Billing billing = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
 
 			//Insert dat
 			pstmt.setString(1, cardNumber);
 			pstmt.setString(2, cardExpiration);
-			pstmt.setString(3, ccvNumber);
+			pstmt.setString(3, cvcNumber);
 			pstmt.setString(4, nameOnCard);
 			pstmt.setString(5, cardType);
 			pstmt.setString(6, zipCode);
@@ -64,8 +64,8 @@ public class PaymentInfoManager {
 			rs.close();
 
 			System.out.println("=> <Billing> Id: "+id);
-			paymentInformation = new PaymentInformation(id, cardNumber, cardExpiration, ccvNumber, nameOnCard, cardType, zipCode);
-			paymentInfos.add(paymentInformation);
+			billing = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+			billings.add(billing);
 
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -74,6 +74,6 @@ public class PaymentInfoManager {
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
-		return paymentInformation;
+		return billing;
 	}
 }

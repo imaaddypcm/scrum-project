@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import backend.*;
 
@@ -14,7 +17,7 @@ public class ReserveServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
-	private PaymentInfoManager pman = null;
+	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
 
 	public void init() throws ServletException {
@@ -22,7 +25,7 @@ public class ReserveServlet extends HttpServlet {
 		resman = Manager.getReservationManager();
 		rooman = Manager.getRoomManager();
 		rtypeman = Manager.getRoomTypeManager();
-		pman = Manager.getPaymentInfoManager();
+		bman = Manager.getBillingManager();
 	}
 
 	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
@@ -82,19 +85,78 @@ public class ReserveServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);
-		String roomType = request.getParameter("roomType");
-		String numRooms = request.getParameter("numRooms");
-		String numGuests = request.getParameter("numGuests");
-		String checkin = request.getParameter("checkin");
-		String checkout = request.getParameter("checkout");
-		//resman.CreateReservation(null, request.getParameter("roomType"), request.getParameter("numRooms"));
-        response.setContentType("text/html");
+		int roomType;
+		int numRooms;
+		int numGuests;
+		Date checkin;
+		Date checkout;
+		String firstName;
+		String lastName;
+		String phoneNumber;
+		String email;
+
+		String cardNumber;
+		String nameOnCard;
+		String cardType;
+		String cardExpiration;
+		String cvcNumber;
+		String postalCode;
+
+		try {
+			roomType = Integer.parseInt(request.getParameter("roomType"));
+			numRooms = Integer.parseInt(request.getParameter("numRooms"));
+			numGuests = Integer.parseInt(request.getParameter("numGuests"));
+			checkin = Date.from(LocalDate.parse(request.getParameter("checkin")).atStartOfDay(ZoneId.systemDefault()).toInstant());
+			checkout = Date.from(LocalDate.parse(request.getParameter("checkout")).atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+			firstName = request.getParameter("firstName");
+			if (firstName == null) throw new IllegalArgumentException("firstName");
+			lastName = request.getParameter("lastName");
+			if (lastName == null) throw new IllegalArgumentException("lastName");
+			phoneNumber = request.getParameter("phoneNumber");
+			if (phoneNumber == null) throw new IllegalArgumentException("phoneNumber");
+			email = request.getParameter("email");
+			System.out.println("Email: " + email);
+			if (email == null || email.isEmpty()) throw new IllegalArgumentException("email");
+
+			cardNumber = request.getParameter("cardNumber");
+			if (cardNumber == null) throw new IllegalArgumentException("cardNumber");
+			nameOnCard = request.getParameter("nameOnCard");
+			if (nameOnCard == null) throw new IllegalArgumentException("nameOnCard");
+			cardType = request.getParameter("cardType");
+			if (cardType == null) throw new IllegalArgumentException("cardType");
+			cardExpiration = request.getParameter("cardExpiration");
+			if (cardExpiration == null) throw new IllegalArgumentException("cardExpiration");
+			cvcNumber = request.getParameter("cvcNumber");
+			if (cvcNumber == null) throw new IllegalArgumentException("cvcNumber");
+			postalCode = request.getParameter("postalCode");
+			if (postalCode == null) throw new IllegalArgumentException("postalCode");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_GATEWAY);
+			return;
+		}
+		//Date checkin = Date.from(LocalDate.parse(request.getParameter("checkin")));
+		//Date checkout = Date.from(Instant.parse(request.getParameter("checkout")));
+		//String numRooms = request.getParameter("numRooms");
+		//String numGuests = request.getParameter("numGuests");
+		//String checkin = request.getParameter("checkin");
+		//String checkout = request.getParameter("checkout");
+		System.out.println("=> Create reservation\nroomType "+roomType+" numRooms: "+numRooms+" numGuests: "+numGuests+" Checkin: "+checkin+" Checkout: "+checkout);
+		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
+		Reservation res = resman.createReservation(customer, billing, roomType, numRooms, numGuests, checkin, checkout);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("confirmationId", res.getId());
+		response.sendRedirect("/complete");
+        /*response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h1>" + roomType + "</h1>");
 		out.println("<h1>" + numRooms + "</h1>");
 		out.println("<h1>" + numGuests + "</h1>");
 		out.println("<h1>" + checkin + "</h1>");
 		out.println("<h1>" + checkout + "</h1>");
-		out.println("<p>" + "Ahoy ahoy!" + "</p>");
+		out.println("<h1>" + res + "</h1>");
+		out.println("<p>" + "Ahoy ahoy!" + "</p>");*/
 	}
 }

@@ -49,7 +49,7 @@ public class ReservationManager {
 		}
 	}
 
-	public Reservation CreateReservation(Customer customer, int roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
+	public Reservation createReservation(Customer customer, Billing billing, int roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
 		Reservation reservation = null;
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
@@ -61,8 +61,9 @@ public class ReservationManager {
 			pstmt.setInt(3, roomType);
 			pstmt.setDate(4, startDate);
 			pstmt.setDate(5, endDate);
-			pstmt.setInt(6, 0);
-			pstmt.setInt(7, 0);
+			pstmt.setInt(6, customer.getId());
+			pstmt.setInt(7, billing.getId());
+			System.out.println("CreateReservation: Billing id: " + billing.getId());
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -83,7 +84,7 @@ public class ReservationManager {
 		return reservation;
 	}
 
-	public boolean CancelReservation(int reservationId) {
+	public boolean cancelReservation(int reservationId) {
         //DELETE FROM reservation WHERE id = 1;
 		return false;
 	}

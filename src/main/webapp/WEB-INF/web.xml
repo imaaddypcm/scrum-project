@@ -23,6 +23,15 @@
         <url-pattern>/reserve</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+       <servlet-name>ReservationComplete</servlet-name>
+       <servlet-class>server.CompleteServlet</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>ReservationComplete</servlet-name>
+        <url-pattern>/complete</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/</url-pattern>

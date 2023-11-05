@@ -26,6 +26,11 @@ public class BookingServlet extends HttpServlet {
 		bman = Manager.getBillingManager();
 	}
 
+	/**
+	 * Get hash map of arguments from GET query
+	 * @param source GET query string
+	 * @return Hash map of arguments
+	 */
 	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
 		HashMap<String, String> data = new HashMap<String, String>();
 
@@ -51,6 +56,13 @@ public class BookingServlet extends HttpServlet {
 		return data;
 	}
 
+	/**
+	 * Foward attribue value from GET request to JSP
+	 * @param request    Servlet request structure
+	 * @param hm         Hash map of all GET arguments
+	 * @param attribute  Name of attribute you want to forward to setAttribute
+	 * @return true if attribute was forwarded successfully, false ortherwise
+	 */
 	private static boolean forwardAttribute(HttpServletRequest request, HashMap<String,String> hm, String attribute) {
 		if (hm.containsKey(attribute)) {
 			request.setAttribute(attribute, hm.get(attribute));
@@ -59,9 +71,8 @@ public class BookingServlet extends HttpServlet {
 		return false;
 	}
 
-	private void sendBooking(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//HttpSession session = request.getSession();
-		//String roomType = request.getParameter("roomType");
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
@@ -87,20 +98,5 @@ public class BookingServlet extends HttpServlet {
 		} catch (ServletException ex) {
 			ex.printStackTrace();
 		}
-	}
-
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		sendBooking(request, response);
-	}
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		sendBooking(request, response);
-		/*String roomType = request.getParameter("roomType");
-        String firstName = request.getParameter("firstName");
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<h1>" + roomType + "</h1>");
-        out.println("<p>" + "Ahoy ahoy!" + "</p>");*/
 	}
 }

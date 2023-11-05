@@ -24,4 +24,8 @@ public class Customer {
     public int getId() {
         return id;
     }
+
+    public String getEmail() {
+        return email;
+    }
 }

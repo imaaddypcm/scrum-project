@@ -18,7 +18,7 @@
        <servlet-name>ReservationForm</servlet-name>
        <servlet-class>server.ReserveServlet</servlet-class>
     </servlet>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ReservationForm</servlet-name>
         <url-pattern>/reserve</url-pattern>
     </servlet-mapping>
@@ -27,9 +27,27 @@
        <servlet-name>ReservationComplete</servlet-name>
        <servlet-class>server.CompleteServlet</servlet-class>
     </servlet>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ReservationComplete</servlet-name>
         <url-pattern>/complete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+       <servlet-name>FindReservation</servlet-name>
+       <servlet-class>server.FindReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FindReservation</servlet-name>
+        <url-pattern>/find-reservation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+       <servlet-name>DisplayReservation</servlet-name>
+       <servlet-class>server.DisplayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayReservation</servlet-name>
+        <url-pattern>/display</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

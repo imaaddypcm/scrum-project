@@ -13,6 +13,10 @@ public class RoomManager {
 	private ArrayList<Room> rooms;
 
 	private Connection conn = null;
+	/**
+	 * Constructs a RoomManager with a given database connection
+	 * @param conn The database connection to use for room managment.
+	 */
 	public RoomManager(Connection conn){
 		this.conn = conn;
 		rooms = new ArrayList<>();
@@ -48,11 +52,22 @@ public class RoomManager {
 			e.printStackTrace();
 		}
 	}
-	public List<Room> getRooms(){
+
+	/**
+	 * Get a list of all rooms managed by this RoomManger.
+	 * @return A list of rooms objects representing the rooms.
+	 */
+	public List<Room> getRooms() {
 		return rooms;
 	}
 
-	public Room CreateRoom(int roomNumber, int roomType){
+	/**
+	 * Add a room to be managed by this RoomManager.
+	 * @param roomNumber The number of the room to create.
+	 * @param roomType The type of the room to create.
+	 * @return The new Room object, or null if an error occurs.
+	 */
+	public Room createRoom(int roomNumber, int roomType) {
 		Room room = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (name, type)\n"

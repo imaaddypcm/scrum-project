@@ -1,14 +1,23 @@
 package backend;
 import java.util.Date;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReservationManager {
-	private ArrayList<Reservation> reservations;
+
+	private Map<Integer, Reservation> reservations;
 	private Connection conn = null;
 
+	/**
+	 * Constructor for objects of class ReservationManager.
+	 * @param conn The database conncection to use for reservation managment.
+	 */
 	public ReservationManager(Connection conn) {
-		reservations = new ArrayList<>();
+		CustomerManager cman = Manager.getCustomerManager();
+		BillingManager bman = Manager.getBillingManager();
+
+		reservations = new HashMap<>();
 		this.conn = conn;
 		try {
 			Statement stmt = conn.createStatement();
@@ -26,20 +35,22 @@ public class ReservationManager {
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
-			/*ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM 'reservations'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String numberOfRooms = rs.getString("numberOfRooms");
-				String numberOfGuests = rs.getString("numberOfGuests");
-				String rooms = rs.getString("rooms");
+				int numberOfRooms = rs.getInt("numberOfRooms");
+				int numberOfGuests = rs.getInt("numberOfGuests");
+				int roomType = rs.getInt("roomType");
 				Date startDate = rs.getDate("startDate");
 				Date endDate = rs.getDate("endDate");
 				int customerID = rs.getInt("customerID");
-				int paymentInfo = rs.getInt("paymentInfo");
-				Reservation reservation = new Reservation(id, numberOfRooms, numberofGuests, rooms, startDate, endDate, customerID, paymentInfo);
-				reservations.add(reservation);
+				int billingID = rs.getInt("billingID");
+				Customer customer = cman.getCustomer(customerID);
+				Billing billing = bman.getBilling(billingID);
+				Reservation reservation = new Reservation(id, customer, billing, roomType, numberOfRooms, numberOfGuests, startDate, endDate);
+				reservations.put(id, reservation);
 			}
-			rs.close();*/
+			rs.close();
 		} catch (SQLException ex) {
 			// handle any errors
 			System.out.println("ReservationManager");
@@ -49,6 +60,17 @@ public class ReservationManager {
 		}
 	}
 
+	/**
+	 * Adds a reservation object to the list and saves it in the database.
+	 * @param customer The customer making a reservation.
+	 * @param billing The billing oformation for the reservation.
+	 * @param roomType The type of room for the reservation.
+	 * @param numberOfRooms The number of rooms to rerserve.
+	 * @param numberOfGuests The number of Guests for thereservation.
+	 * @param startTime The date when a reservation starts.
+	 * @param endTime The date when a reservation ends.
+	 * @return A
+	 */
 	public Reservation createReservation(Customer customer, Billing billing, int roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
 		Reservation reservation = null;
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
@@ -73,8 +95,8 @@ public class ReservationManager {
 			rs.close();
 
 			System.out.println("=> <Reservation> Id: "+id+" Start: "+start+" End: "+end);
-			reservation = new Reservation(id, customer, roomType, numberOfRooms, numberOfGuests, start, end);
-			reservations.add(reservation);
+			reservation = new Reservation(id, customer, billing, roomType, numberOfRooms, numberOfGuests, start, end);
+			reservations.put(id, reservation);
 			pstmt.close();
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
@@ -84,6 +106,15 @@ public class ReservationManager {
 		return reservation;
 	}
 
+	public Reservation getReservation(int id) {
+		return reservations.get(id);
+	}
+
+	/**
+	 * Cancel a reservation with the given reservatio ID
+	 * @param reservationId The ID of the reservation to cancel.
+	 * @return True if the reservation is canceled, false if otherwise
+	 */
 	public boolean cancelReservation(int reservationId) {
         //DELETE FROM reservation WHERE id = 1;
 		return false;

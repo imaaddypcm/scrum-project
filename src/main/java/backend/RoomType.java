@@ -5,6 +5,7 @@ public class RoomType {
 	private String name;
 	private String description;
 	private String rules;
+	private int numberOfBeds;
 
 	/*
 	Single
@@ -18,11 +19,12 @@ public class RoomType {
 	Studio/Suite
 	 */
 
-	public RoomType(int id, String name, String description, String rules) {
+	public RoomType(int id, String name, String description, String rules, int numberOfBeds) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.rules = rules;
+		this.numberOfBeds = numberOfBeds;
 	}
 
 	public int getId() {

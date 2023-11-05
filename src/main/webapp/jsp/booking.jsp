@@ -16,6 +16,8 @@ COMMENTS:
 For example, the form for payment information could have a different structure than the one for reservation details
 -->
 
+<a href="/find-reservation">My Reservations</a>
+
 <div>
     <form id="bookingForm" action="/" method="get">
         <div class="form-group">

@@ -9,6 +9,10 @@ public class Manager {
 	private static BillingManager bman = null;
 	private static RoomTypeManager rtypeman = null;
 
+	/**
+	 * Creates a CustomerManager object if not already created.
+	 * @return Returns the newly or already created CustomerManager object.
+	 */
 	public static CustomerManager getCustomerManager() {
 		Connection conn = DatabaseConnection.getConnection();
 		if (cman == null) {
@@ -17,6 +21,10 @@ public class Manager {
 		return cman;
 	}
 
+	/**
+	 * Creates a ReservationManager object if not already created.
+	 * @return Returns the newly or already created ReservationManager object.
+	 */
 	public static ReservationManager getReservationManager() {
 		Connection conn = DatabaseConnection.getConnection();
 		if (resman == null) {
@@ -25,6 +33,10 @@ public class Manager {
 		return resman;
 	}
 
+	/**
+	 * Creates a RoomManager object if not already created.
+	 * @return Returns the newly or already created RoomManager object.
+	 */
 	public static RoomManager getRoomManager() {
 		Connection conn = DatabaseConnection.getConnection();
 		if (rooman == null) {
@@ -33,6 +45,10 @@ public class Manager {
 		return rooman;
 	}
 
+	/**
+	 * Creates a RoomTypeManager object if not already created.
+	 * @return Returns the newly or already created RoomTypeManager object.
+	 */
 	public static RoomTypeManager getRoomTypeManager() {
 		Connection conn = DatabaseConnection.getConnection();
 		if (rtypeman == null) {
@@ -41,6 +57,10 @@ public class Manager {
 		return rtypeman;
 	}
 
+	/**
+	 * Creates a BillingManager object if not already created.
+	 * @return Returns the newly or already created BillingManager object.
+	 */
 	public static BillingManager getBillingManager() {
 		Connection conn = DatabaseConnection.getConnection();
 		if (bman == null) {

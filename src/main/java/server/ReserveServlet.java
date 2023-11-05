@@ -28,6 +28,11 @@ public class ReserveServlet extends HttpServlet {
 		bman = Manager.getBillingManager();
 	}
 
+	/**
+	 * Get hash map of arguments from GET query
+	 * @param source GET query string
+	 * @return Hash map of arguments
+	 */
 	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
 		HashMap<String, String> data = new HashMap<String, String>();
 
@@ -53,6 +58,13 @@ public class ReserveServlet extends HttpServlet {
 		return data;
 	}
 
+	/**
+	 * Foward attribue value from GET request to JSP
+	 * @param request    Servlet request structure
+	 * @param hm         Hash map of all GET arguments
+	 * @param attribute  Name of attribute you want to forward to setAttribute
+	 * @return true if attribute was forwarded successfully, false ortherwise
+	 */
 	private static boolean forwardAttribute(HttpServletRequest request, HashMap<String,String> hm, String attribute) {
 		if (hm.containsKey(attribute)) {
 			request.setAttribute(attribute, hm.get(attribute));
@@ -136,12 +148,6 @@ public class ReserveServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY);
 			return;
 		}
-		//Date checkin = Date.from(LocalDate.parse(request.getParameter("checkin")));
-		//Date checkout = Date.from(Instant.parse(request.getParameter("checkout")));
-		//String numRooms = request.getParameter("numRooms");
-		//String numGuests = request.getParameter("numGuests");
-		//String checkin = request.getParameter("checkin");
-		//String checkout = request.getParameter("checkout");
 		System.out.println("=> Create reservation\nroomType "+roomType+" numRooms: "+numRooms+" numGuests: "+numGuests+" Checkin: "+checkin+" Checkout: "+checkout);
 		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
 		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
@@ -149,14 +155,5 @@ public class ReserveServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("confirmationId", res.getId());
 		response.sendRedirect("/complete");
-        /*response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<h1>" + roomType + "</h1>");
-		out.println("<h1>" + numRooms + "</h1>");
-		out.println("<h1>" + numGuests + "</h1>");
-		out.println("<h1>" + checkin + "</h1>");
-		out.println("<h1>" + checkout + "</h1>");
-		out.println("<h1>" + res + "</h1>");
-		out.println("<p>" + "Ahoy ahoy!" + "</p>");*/
 	}
 }

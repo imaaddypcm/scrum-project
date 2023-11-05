@@ -1,14 +1,15 @@
 package backend;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class BillingManager {
-	private ArrayList<Billing> billings;
+	private Map<Integer, Billing> billings;
 	private Connection conn = null;
 
 	public BillingManager(Connection conn) {
-		billings = new ArrayList<>();
+		billings = new HashMap<>();
 		this.conn = conn;
 		try {
 			Statement stmt = conn.createStatement();
@@ -23,7 +24,7 @@ public class BillingManager {
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM 'billing'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String cardNumber = rs.getString("cardNumber");
@@ -32,8 +33,9 @@ public class BillingManager {
 				String nameOnCard = rs.getString("nameOnCard");
 				String cardType = rs.getString("cardType");
 				String zipCode = rs.getString("zipCode");
+				System.out.println("Existing billing id: " + id);
 				Billing payment = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
-				billings.add(payment);
+				billings.put(id, payment);
 			}
 			rs.close();
 		} catch (SQLException ex) {
@@ -45,13 +47,23 @@ public class BillingManager {
 		}
 	}
 
+	/**
+	 * Takes billing information and inserts into database then creates a corresponding Billing object
+	 * @param cardNumber Number the card
+	 * @param cardExpiration Date of card expiration
+	 * @param cvcNumber Card Verification Code
+	 * @param nameOnCard Name listed on card
+	 * @param cardType Brand/Type of Card
+	 * @param zipCode Postal/Zip code associated with card
+	 * @return Returns the newly created Billing object which will be null if unsuccessful
+	 */
 	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode) {
 		Billing billing = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
 
-			//Insert dat
+			//Insert data
 			pstmt.setString(1, cardNumber);
 			pstmt.setString(2, cardExpiration);
 			pstmt.setString(3, cvcNumber);
@@ -65,7 +77,7 @@ public class BillingManager {
 
 			System.out.println("=> <Billing> Id: "+id);
 			billing = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
-			billings.add(billing);
+			billings.put(id, billing);
 
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -75,5 +87,9 @@ public class BillingManager {
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
 		return billing;
+	}
+
+	public Billing getBilling(int id) {
+		return billings.get(id);
 	}
 }

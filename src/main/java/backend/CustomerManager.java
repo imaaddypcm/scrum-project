@@ -11,7 +11,7 @@ public class CustomerManager {
 	private Connection conn = null;
 
 	public CustomerManager(Connection conn) {
-		customers = new HashMap<Integer, Customer>();
+		customers = new HashMap<>();
 		this.conn=conn;
 		try {
 			Statement stmt = conn.createStatement();
@@ -34,7 +34,7 @@ public class CustomerManager {
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String firstName = rs.getString("firstName");
@@ -57,6 +57,15 @@ public class CustomerManager {
 		System.out.println(customers);
 	}
 
+	/**
+	 * Takes customer information and checks if the customer's email exists in database, otherwise creates a new Customer object.
+	 * @param firstName Customer first name
+	 * @param lastName Customer last name
+	 * @param phoneNumber Customer phone number
+	 * @param email Customer email
+	 * @param address Customer address
+	 * @return Returns Customer object or null if unsuccessful
+	 */
 	public Customer findOrMake(String firstName, String lastName, String phoneNumber, String email, String address) {
 		Customer customer = null;
 		try {
@@ -87,6 +96,15 @@ public class CustomerManager {
 		return customer;
 	}
 
+	/**
+	 * Takes customer information and inserts it into the database, then creates a Customer object.
+	 * @param firstName Customer first name
+	 * @param lastName Customer last name
+	 * @param phoneNumber Customer phone number
+	 * @param email Customer email
+	 * @param address Customer address
+	 * @return Returns newly created Customer object or null if unsuccessful
+	 */
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber, String email, String address){
 		Customer customer = null;
 
@@ -118,4 +136,11 @@ public class CustomerManager {
 		}
 		return customer;
 	}
+
+	public Customer getCustomer(int id) {
+		return customers.get(id);
+	}
+
+
+
 }

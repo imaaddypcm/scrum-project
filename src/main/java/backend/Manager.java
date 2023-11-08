@@ -32,7 +32,7 @@ public class Manager {
 	}
 
 	/**
-	 * Creates Manager object with a new connection.
+	 * Creates Manager object with the default connection.
 	 * @return Returns Manager object with connection.
 	 */
 	public static Manager getManager() {

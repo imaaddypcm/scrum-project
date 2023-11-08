@@ -21,6 +21,7 @@ public class ReservationManager {
 		reservations = new HashMap<>();
 		this.conn = conn;
 		try {
+			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'reservations' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
@@ -36,6 +37,7 @@ public class ReservationManager {
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
+			// Insert preexisting entries into reservations HashMap
 			ResultSet rs = stmt.executeQuery("SELECT * FROM 'reservations'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
@@ -77,6 +79,7 @@ public class ReservationManager {
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
 		try {
+			// Insert data
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, roomType, startDate, endDate, customerID, billingID)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;");
 			pstmt.setInt(1, numberOfRooms);
@@ -95,6 +98,7 @@ public class ReservationManager {
 			Date end = new java.util.Date(rs.getDate("endDate").getTime());
 			rs.close();
 
+			// Create Reservation object
 			System.out.println("=> <Reservation> Id: "+id+" Start: "+start+" End: "+end);
 			reservation = new Reservation(id, customer, billing, roomType, numberOfRooms, numberOfGuests, start, end);
 			reservations.put(id, reservation);

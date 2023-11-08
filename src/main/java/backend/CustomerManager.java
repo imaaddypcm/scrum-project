@@ -14,16 +14,8 @@ public class CustomerManager {
 		customers = new HashMap<>();
 		this.conn=conn;
 		try {
+			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
-			//CREATE TABLE "customers" (
-			//	"ID"	INTEGER NOT NULL UNIQUE,
-			//	"firstName"	VARCHAR(255) NOT NULL,
-			//	"lastName"	VARCHAR(255) NOT NULL,
-			//	"phoneNumber"	VARCHAR(255) NOT NULL,
-			//	"email"	VARCHAR(255),
-			//	"address"	VARCHAR(255) NOT NULL,
-			//	PRIMARY KEY("ID")
-			//);
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'customers' (\n"
 			+ " 'id'          INTEGER NOT NULL UNIQUE,\n"
 			+ " 'firstName'   VARCHAR(255) NOT NULL,\n"
@@ -34,6 +26,7 @@ public class CustomerManager {
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
+			// Insert preexisting entries into customers HashMap
 			ResultSet rs = stmt.executeQuery("SELECT * FROM 'customers'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
@@ -71,7 +64,7 @@ public class CustomerManager {
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM customers WHERE email = ?;");
 
-			//Insert data
+			// Find customer
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -82,7 +75,7 @@ public class CustomerManager {
 			}
 			rs.close();
 
-			// No sutable canidate found
+			// No suitable candidate found
 			System.out.println("<Customer.findOrMake> Create customer");
 			customer = createCustomer(firstName, lastName, phoneNumber, email, address);
 			pstmt.close();
@@ -112,7 +105,7 @@ public class CustomerManager {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO customers (firstName, lastName, phoneNumber, email, address)\n"
 			+ "VALUES (?, ?, ?, ?, ?) RETURNING *;");
 
-			//Insert dat
+			// Insert data
 			pstmt.setString(1, firstName);
 			pstmt.setString(2, lastName);
 			pstmt.setString(3, phoneNumber);
@@ -123,6 +116,7 @@ public class CustomerManager {
 			int id = rs.getInt("id");
 			rs.close();
 
+			// Create Customer object
 			System.out.println("=> <Customer> Id: "+id+" First: "+firstName+" Last: "+lastName);
 			customer = new Customer(id, firstName, lastName, phoneNumber, email, address);
 			customers.put(id, customer);

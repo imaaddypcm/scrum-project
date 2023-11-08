@@ -30,6 +30,8 @@ public class RoomManager {
 			"rules"         TEXT*********************
 			PRIMARY KEY("room_ID")
 			);*/
+
+			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'rooms' (\n"
 			+ " 'number' INTEGER NOT NULL UNIQUE,\n"
@@ -37,6 +39,7 @@ public class RoomManager {
 			+ "	PRIMARY KEY('number')\n"
 			+ ");");
 
+			// Insert preexisting entries into rooms HashMap
 			ResultSet rs = stmt.executeQuery("SELECT * FROM rooms");
 			while(rs.next()){
 				int roomNumber = rs.getInt("number");
@@ -82,6 +85,7 @@ public class RoomManager {
 			rs.close();
 			assert(id == roomNumber);
 
+			// Create Room object
 			System.out.println("=> <CreateRoom> Number: "+roomNumber);
 			room = new Room(roomNumber, roomType);
 			rooms.add(room);

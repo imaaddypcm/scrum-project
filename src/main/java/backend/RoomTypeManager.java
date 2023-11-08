@@ -19,6 +19,7 @@ public class RoomTypeManager {
 		this.conn = conn;
 		roomTypes = new ArrayList<>();
 		try{
+			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'roomTypes' (\n"
 			+ " 'id'    INTEGER NOT NULL UNIQUE,\n"
@@ -29,6 +30,7 @@ public class RoomTypeManager {
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
+			// Insert preexisting entries into roomTypes HashMap
 			ResultSet rs = stmt.executeQuery("SELECT * FROM roomTypes");
 			while(rs.next()){
 				int roomTypeID = rs.getInt("id");
@@ -43,6 +45,7 @@ public class RoomTypeManager {
 			rs.close();
 			stmt.close();
 
+			// Create default room types
 			ResultSet prs = null;
             prs = stmt.executeQuery("SELECT * FROM roomTypes WHERE id = 0");
 			if (!prs.next()) {

@@ -12,6 +12,7 @@ public class BillingManager {
 		billings = new HashMap<>();
 		this.conn = conn;
 		try {
+			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'billing' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
@@ -24,6 +25,7 @@ public class BillingManager {
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
+			// Insert preexisting entries into billings HashMap
 			ResultSet rs = stmt.executeQuery("SELECT * FROM 'billing'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
@@ -63,7 +65,7 @@ public class BillingManager {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
 
-			//Insert data
+			// Insert data
 			pstmt.setString(1, cardNumber);
 			pstmt.setString(2, cardExpiration);
 			pstmt.setString(3, cvcNumber);
@@ -75,6 +77,7 @@ public class BillingManager {
 			int id = rs.getInt("id");
 			rs.close();
 
+			// Create Billing object
 			System.out.println("=> <Billing> Id: "+id);
 			billing = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
 			billings.put(id, billing);

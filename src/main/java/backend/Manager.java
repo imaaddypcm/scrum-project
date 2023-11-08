@@ -14,6 +14,11 @@ public class Manager {
 	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
 
+	/**
+	 * Retrieves a Manager object with corresponding connection or creates a new Manager object.
+	 * @param conn Database Connection.
+	 * @return Returns Manager object with connection.
+	 */
 	public static Manager getManager(Connection conn) {
 		if (managers == null)
 			managers = new HashMap<>();
@@ -26,6 +31,10 @@ public class Manager {
 		return manager;
 	}
 
+	/**
+	 * Creates Manager object with a new connection.
+	 * @return Returns Manager object with connection.
+	 */
 	public static Manager getManager() {
 		return getManager(DatabaseConnection.getConnection());
 	}

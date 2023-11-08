@@ -3,13 +3,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Hotel Reservation</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Find Your Hotel Reservation</title>
+	<link rel="stylesheet" type="text/css" href="/static/styles.css">
 </head>
 <body>
-<p>Reservation id: ${viewReservationId}</p>
+
+<c:if test="${not empty reservation}">
+<p>Reservation id: ${reservation.id}</p>
+<p>Checkin Date: ${reservation.startDate}</p>
+<p>Checkout Date: ${reservation.endDate}</p>
+<p>Room Type: ${reservation.roomType}</p>
+<p>Rooms: ${reservation.numberOfRooms}</p>
+<p>Guests: ${reservation.numberOfGuests}</p>
+</c:if>
+<c:if test="${empty reservation}">
+<h1>Stale request</h1>
+</c:if>
 </body>
 </html>

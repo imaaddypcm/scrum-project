@@ -3,20 +3,25 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.http.HttpServletResponse;
-import backend.Customer;
+import backend.*;
 
 public class DisplayServlet extends HttpServlet {
-	private String mymsg;
+	private ReservationManager resman = null;
     public void init() throws ServletException {
-       mymsg = "Http Servlet Demo";
+		Manager man = Manager.getManager();
+		resman = man.getReservationManager();
     }
 
 	@Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-		HttpSession session = request.getSession(false);
-		request.setAttribute("viewReservationId", session.getAttribute("viewReservationId"));
-		session.removeAttribute("viewReservationId");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("viewReservationId") != null) {
+			int resvNum = Integer.parseInt(session.getAttribute("viewReservationId").toString());
+			Reservation reservation = resman.getReservation(resvNum);
+			request.setAttribute("reservation", reservation);
+			session.removeAttribute("viewReservationId");
+		}
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/display.jsp");
 		try {

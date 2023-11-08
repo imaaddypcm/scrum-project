@@ -10,8 +10,9 @@ public class FindReservationServlet extends HttpServlet {
 	private CustomerManager cman = null;
 
 	public void init() throws ServletException {
-		resman = Manager.getReservationManager();
-		cman = Manager.getCustomerManager();
+		Manager man = Manager.getManager();
+		resman = man.getReservationManager();
+		cman = man.getCustomerManager();
 	}
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,7 +39,7 @@ public class FindReservationServlet extends HttpServlet {
 		}
 
 		if (valid) {
-			HttpSession session = request.getSession(false);
+			HttpSession session = request.getSession();
 			session.setAttribute("viewReservationId", resvNum);
 			response.sendRedirect("/display");
 		}

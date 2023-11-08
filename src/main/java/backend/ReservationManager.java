@@ -14,8 +14,9 @@ public class ReservationManager {
 	 * @param conn The database conncection to use for reservation managment.
 	 */
 	public ReservationManager(Connection conn) {
-		CustomerManager cman = Manager.getCustomerManager();
-		BillingManager bman = Manager.getBillingManager();
+		Manager man = Manager.getManager(conn);
+		CustomerManager cman = man.getCustomerManager();
+		BillingManager bman = man.getBillingManager();
 
 		reservations = new HashMap<>();
 		this.conn = conn;

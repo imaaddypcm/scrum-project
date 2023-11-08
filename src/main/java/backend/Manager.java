@@ -1,20 +1,44 @@
 package backend;
 
 import java.sql.Connection;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Manager {
-	private static CustomerManager cman = null;
-	private static ReservationManager resman = null;
-	private static RoomManager rooman = null;
-	private static BillingManager bman = null;
-	private static RoomTypeManager rtypeman = null;
+	private static Map<Connection, Manager> managers = null;
+
+	private Connection conn = null;
+	private CustomerManager cman = null;
+	private ReservationManager resman = null;
+	private RoomManager rooman = null;
+	private BillingManager bman = null;
+	private RoomTypeManager rtypeman = null;
+
+	public static Manager getManager(Connection conn) {
+		if (managers == null)
+			managers = new HashMap<>();
+
+		Manager manager = managers.get(conn);
+		if (manager == null) {
+			manager = new Manager(conn);
+			managers.put(conn, manager);
+		}
+		return manager;
+	}
+
+	public static Manager getManager() {
+		return getManager(DatabaseConnection.getConnection());
+	}
+
+	public Manager(Connection conn) {
+		this.conn = conn;
+	}
 
 	/**
 	 * Creates a CustomerManager object if not already created.
 	 * @return Returns the newly or already created CustomerManager object.
 	 */
-	public static CustomerManager getCustomerManager() {
-		Connection conn = DatabaseConnection.getConnection();
+	public CustomerManager getCustomerManager() {
 		if (cman == null) {
 			cman = new CustomerManager(conn);
 		}
@@ -25,8 +49,7 @@ public class Manager {
 	 * Creates a ReservationManager object if not already created.
 	 * @return Returns the newly or already created ReservationManager object.
 	 */
-	public static ReservationManager getReservationManager() {
-		Connection conn = DatabaseConnection.getConnection();
+	public ReservationManager getReservationManager() {
 		if (resman == null) {
 			resman = new ReservationManager(conn);
 		}
@@ -37,8 +60,7 @@ public class Manager {
 	 * Creates a RoomManager object if not already created.
 	 * @return Returns the newly or already created RoomManager object.
 	 */
-	public static RoomManager getRoomManager() {
-		Connection conn = DatabaseConnection.getConnection();
+	public RoomManager getRoomManager() {
 		if (rooman == null) {
 			rooman = new RoomManager(conn);
 		}
@@ -49,8 +71,7 @@ public class Manager {
 	 * Creates a RoomTypeManager object if not already created.
 	 * @return Returns the newly or already created RoomTypeManager object.
 	 */
-	public static RoomTypeManager getRoomTypeManager() {
-		Connection conn = DatabaseConnection.getConnection();
+	public RoomTypeManager getRoomTypeManager() {
 		if (rtypeman == null) {
 			rtypeman = new RoomTypeManager(conn);
 		}
@@ -61,8 +82,7 @@ public class Manager {
 	 * Creates a BillingManager object if not already created.
 	 * @return Returns the newly or already created BillingManager object.
 	 */
-	public static BillingManager getBillingManager() {
-		Connection conn = DatabaseConnection.getConnection();
+	public BillingManager getBillingManager() {
 		if (bman == null) {
 			bman = new BillingManager(conn);
 		}

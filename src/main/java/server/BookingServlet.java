@@ -19,11 +19,12 @@ public class BookingServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		//getServletContext()
-		cman = Manager.getCustomerManager();
-		resman = Manager.getReservationManager();
-		rooman = Manager.getRoomManager();
-		rtypeman = Manager.getRoomTypeManager();
-		bman = Manager.getBillingManager();
+		Manager man = Manager.getManager();
+		cman = man.getCustomerManager();
+		resman = man.getReservationManager();
+		rooman = man.getRoomManager();
+		rtypeman = man.getRoomTypeManager();
+		bman = man.getBillingManager();
 	}
 
 	/**

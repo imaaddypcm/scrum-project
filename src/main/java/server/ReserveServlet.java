@@ -21,11 +21,12 @@ public class ReserveServlet extends HttpServlet {
 	private RoomTypeManager rtypeman = null;
 
 	public void init() throws ServletException {
-		cman = Manager.getCustomerManager();
-		resman = Manager.getReservationManager();
-		rooman = Manager.getRoomManager();
-		rtypeman = Manager.getRoomTypeManager();
-		bman = Manager.getBillingManager();
+		Manager man = Manager.getManager();
+		cman = man.getCustomerManager();
+		resman = man.getReservationManager();
+		rooman = man.getRoomManager();
+		rtypeman = man.getRoomTypeManager();
+		bman = man.getBillingManager();
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class ReserveServlet extends HttpServlet {
 		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
 		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
 		Reservation res = resman.createReservation(customer, billing, roomType, numRooms, numGuests, checkin, checkout);
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		session.setAttribute("confirmationId", res.getId());
 		response.sendRedirect("/complete");
 	}

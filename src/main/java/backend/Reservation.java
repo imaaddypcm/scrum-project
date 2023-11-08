@@ -24,11 +24,31 @@ public class Reservation {
 		this.numberOfGuests = numberOfGuests;
 	}
 
-	public int getId(){
+	public int getId() {
 		return id;
 	}
 
-	public Customer getCustomer(){
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public int getRoomType() {
+		return roomType;
+	}
+
+	public Customer getCustomer() {
 		return customer;
+	}
+
+	public int getNumberOfRooms() {
+		return numberOfRooms;
+	}
+
+	public int getNumberOfGuests() {
+		return numberOfGuests;
 	}
 }

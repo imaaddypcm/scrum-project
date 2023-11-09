@@ -10,13 +10,12 @@ public class Reservation {
 	private int numberOfGuests;
 	private Date startDate;
 	private Date endDate;
-	//Room roomsReserved[];
-	//Customer customer;
 
 
 	public Reservation(int id, Customer customer, Billing billing, int roomType, int numberOfRooms, int numberOfGuests, Date start, Date end){
 		this.id = id;
 		this.customer = customer;
+		this.billing = billing;
 		this.roomType = roomType;
 		this.numberOfRooms = numberOfRooms;
 		this.startDate = start;
@@ -42,6 +41,10 @@ public class Reservation {
 
 	public Customer getCustomer() {
 		return customer;
+	}
+
+	public Billing getBilling() {
+		return billing;
 	}
 
 	public int getNumberOfRooms() {

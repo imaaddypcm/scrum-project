@@ -55,6 +55,9 @@ For example, the form for payment information could have a different structure t
                 <span>${roomType.description}</span>
             </article>
             <div class="book center">
+                <div>
+                    $${roomType.price}
+                </div>
                 <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button class="button">Book Room</button></a>
             </div>
         </div>

@@ -6,6 +6,7 @@ public class RoomType {
 	private String description;
 	private String rules;
 	private int numberOfBeds;
+	private int price;
 
 	/*
 	Single
@@ -19,12 +20,13 @@ public class RoomType {
 	Studio/Suite
 	 */
 
-	public RoomType(int id, String name, String description, String rules, int numberOfBeds) {
+	public RoomType(int id, String name, String description, String rules, int numberOfBeds, int price) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.rules = rules;
 		this.numberOfBeds = numberOfBeds;
+		this.price = price;
 	}
 
 	public int getId() {
@@ -41,5 +43,9 @@ public class RoomType {
 
 	public String getRules() {
 		return rules;
+	}
+
+	public int getPrice(){
+		return price;
 	}
 }

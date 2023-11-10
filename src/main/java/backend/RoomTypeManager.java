@@ -27,6 +27,7 @@ public class RoomTypeManager {
 			+ "	'description'  VARCHAR(255) NOT NULL,\n"
 			+ "	'rules'  VARCHAR(255) NOT NULL,\n"
 			+ "	'beds'   INTEGER NOT NULL,\n"
+			+ "	'price'  INTEGER NOT NULL,\n"
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
@@ -38,8 +39,9 @@ public class RoomTypeManager {
 				String roomDescription = rs.getString("description");
 				String roomRules = rs.getString("rules");
 				int numberOfBeds = rs.getInt("beds");
+				int price = rs.getInt("price");
 
-				RoomType roomType = new RoomType(roomTypeID, roomName, roomDescription, roomRules, numberOfBeds);
+				RoomType roomType = new RoomType(roomTypeID, roomName, roomDescription, roomRules, numberOfBeds, price);
 				roomTypes.add(roomType);
 			}
 			rs.close();
@@ -51,7 +53,7 @@ public class RoomTypeManager {
 			if (!prs.next()) {
 				System.out.println("=> Creating room type 0");
 				prs.close();
-				addRoomTypei(0, "Deluxe Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1);
+				addRoomTypei(0, "Deluxe Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1, 80);
 			}
 			prs.close();
 
@@ -59,7 +61,7 @@ public class RoomTypeManager {
 			if (!prs.next()) {
 				System.out.println("=> Creating room type 1");
 				prs.close();
-				addRoomTypei(1, "Studio Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1);
+				addRoomTypei(1, "Studio Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1, 90);
 			}
 			prs.close();
 			stmt.close();
@@ -85,21 +87,22 @@ public class RoomTypeManager {
 	 * @param numberOfBeds number of beds for set room type
 	 * @return Room type structure
 	 */
-	private RoomType addRoomTypei(int id, String name, String description, String rules, int numberOfBeds) {
+	private RoomType addRoomTypei(int id, String name, String description, String rules, int numberOfBeds, int price) {
 		RoomType roomType = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO roomTypes (id, name, description, rules, beds)\n"
-			+ "VALUES (?,?,?,?,?) RETURNING *;");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO roomTypes (id, name, description, rules, beds, price)\n"
+			+ "VALUES (?,?,?,?,?,?) RETURNING *;");
 
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
 			pstmt.setString(3, description);
 			pstmt.setString(4, rules);
 			pstmt.setInt(5, numberOfBeds);
+			pstmt.setInt(6, price);
 			pstmt.execute();
 
 			System.out.println("=> <RoomType> Id: "+id+" Description: "+description+" Rules: "+rules);
-			roomType = new RoomType(id, name, description, rules, numberOfBeds);
+			roomType = new RoomType(id, name, description, rules, numberOfBeds, price);
 			roomTypes.add(roomType);
 			pstmt.close();
 		} catch (SQLException ex) {
@@ -119,16 +122,17 @@ public class RoomTypeManager {
 	 * @param numberOfBeds number of beds for set room type
 	 * @return Room type structure
 	 */
-	public RoomType addRoomType(String name, String description, String rules, int numberOfBeds) {
+	public RoomType addRoomType(String name, String description, String rules, int numberOfBeds, int price) {
 		RoomType roomType = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO roomTypes (name, description, rules, beds)\n"
-			+ "VALUES (?,?,?,?) RETURNING *;");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO roomTypes (name, description, rules, beds, price)\n"
+			+ "VALUES (?,?,?,?,?) RETURNING *;");
 
 			pstmt.setString(2, name);
 			pstmt.setString(3, description);
 			pstmt.setString(4, rules);
 			pstmt.setInt(5, numberOfBeds);
+			pstmt.setInt(6, price);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -136,7 +140,7 @@ public class RoomTypeManager {
 			rs.close();
 
 			System.out.println("=> <RoomType> Id: "+id+" Description: "+description+" Rules: "+rules);
-			roomType = new RoomType(id, name, description, rules, numberOfBeds);
+			roomType = new RoomType(id, name, description, rules, numberOfBeds, price);
 			roomTypes.add(roomType);
 			pstmt.close();
 		} catch (SQLException ex) {

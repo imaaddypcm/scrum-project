@@ -75,6 +75,11 @@
 	cursor: pointer;
 }
 
+.book {
+	display: flex;
+	flex-direction: column;
+}
+
 .book .button:hover {
 	background-color: #4CAF50;
 	color: white;

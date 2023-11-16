@@ -10,6 +10,15 @@ public class CustomerManager {
 	private static String url = "jdbc:sqlite:hotel.sqlite";
 	private Connection conn = null;
 
+	public static boolean validateEmail(String email){
+		if(email.indexOf('@')==-1){
+			return false;
+		}
+		else{}
+			return true;
+		}
+	}
+
 	public CustomerManager(Connection conn) {
 		customers = new HashMap<>();
 		this.conn=conn;
@@ -79,7 +88,7 @@ public class CustomerManager {
 			System.out.println("<Customer.findOrMake> Create customer");
 
 			// Validate Email
-			if(email.indexOf('@')==-1){
+			if(validateEmail(email)==false){
 				return null;
 			}
 
@@ -107,7 +116,7 @@ public class CustomerManager {
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber, String email, String address){
 		Customer customer = null;
 			// Validate Email
-			if(email.indexOf('@')==-1){
+			if(validateEmail(email)==false){
 				return null;
 			}
 		try {

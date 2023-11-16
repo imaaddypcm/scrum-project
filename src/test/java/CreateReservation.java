@@ -22,4 +22,5 @@ class CreateReservation {
 		Reservation res = resman.getReservation(99999);// No existing reservation matches given id
 		assertNull(res, "Reservation fetch failed!");
     }
+
 }

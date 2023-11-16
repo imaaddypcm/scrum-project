@@ -5,24 +5,67 @@
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
+	background-color: #0073e6e1; /* Blue background color */
+    border-radius: 10px; /* Rounded borders */
+    padding: 20px; /* Add padding for spacing */
+	margin-left: 15%;
+	margin-right: 15%;
+
 }
 
 .roomListHeader {
-	border-style: ridge;
-	background-color: #AAA;
+	text-align: center;
+	border-style: double;
+	margin-left: 5%;
+	margin-right: 5%;
+	border-radius: 10px;
+	margin-top: 10px;
 }
 
 .roomTypeInfo {
 	display: flex;
 	margin-left: auto;
+
 }
 
 .form-group {
 	display: flex;
 	flex-direction: column;
-	margin-right: 10px;
+	margin-right: 25px;
 	text-align: center;
+	color: #fff;
+
+	font-size:20px;
+
 }
+
+
+
+.form-group input,
+  .form-group select {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+	width: 90% ;
+	font-size:15px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+	margin-top: 5px;
+	font-size: 20px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
 
 .accordion {
 	background-color: #eee;
@@ -43,23 +86,7 @@
 	overflow: hidden;
   }
 
-/*
-#checkin {
-	display: flex;
-	flex-direction: column;
-	width: 200px;
-	margin-bottom: 10px;
-}
 
-#checkin label {
-	font-weight: bold;
-}
-
-#checkin input {
-	padding: 5px;
-	margin: 5px 0;
-}
-*/
 
 .button {
 	background-color: #4CAF50; /* Green */
@@ -184,4 +211,133 @@ h1 {
 
 .thumb {
 	width: 30rem;
+}
+
+
+
+/*Navbar*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+
+}
+
+@font-face {
+	font-family: "Bitstream Vera Serif Bold";
+	src: url("https://mdn.github.io/css-examples/web-fonts/VeraSeBd.ttf");
+  }
+
+.navbar-logo {
+	font-size: 24px;
+	font-weight: bold;
+	font-family: 'Bitstream Vera Serif Bold';
+	white-space: nowrap;
+	padding-left: 30px;
+
+}
+
+.navbar {
+    background-color: #0073e6e1;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+	margin-bottom: 5px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+}
+
+.navbar-logo {
+    max-width: 80px;
+}
+
+.navbar-links {
+    margin-right: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+	font-size:20px;
+
+}
+
+.room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.room {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.room img {
+    max-width: 400px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow: 5px 5px 5px #a7a7a76c; /* Add a shadow */
+}
+
+.room-content {
+    padding: 50px; /* Add padding for spacing */
+}
+
+.room h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.room p {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #005dbb;
+}
+
+.search-form {
+    background-color: #56aafff0;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.search-form input, .search-form select {
+    padding: 5px;
+    margin: 5px;
 }

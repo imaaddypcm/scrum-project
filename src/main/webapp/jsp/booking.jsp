@@ -8,15 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Form</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css">
+
+
 </head>
 <body>
-<!--
-COMMENTS:
-    Different forms may need to be implemented for better organization of inputs:
-For example, the form for payment information could have a different structure than the one for reservation details
--->
 
-<a href="/find-reservation">My Reservations</a>
+    <div class="navbar">
+        <span class="navbar-logo">Four Corners</span>
+        <div class="navbar-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="/find-reservation">My Reservations</a>
+            <!--Need to connect help-->
+            <a href="#">Help</a>
+        </div>
+    </div>
+
 
 <div>
     <form id="bookingForm" action="/" method="get">
@@ -43,26 +50,35 @@ For example, the form for payment information could have a different structure t
 <div class="roomListHeader">
     <h3>List of Rooms</h3>
 </div>
-<div class="support-grid"></div>
-<div class="band">
-<c:forEach items="${roomTypes}" var="roomType">
-    <div class="item-4">
-        <div class="card">
-            <img src="/static/roomTest.jpg" alt="Room Image">
-            <article>
-                <h1>${roomType.name}</h1>
-                <p></p>
-                <span>${roomType.description}</span>
-            </article>
-            <div class="book center">
-                <div>
-                    $${roomType.price}
+<div class="room-container">
+    <c:forEach items="${roomTypes}" var="roomType">
+        <div class="room">
+            <c:choose>
+                <c:when test="${roomType.name == 'Luxury'}">
+                    <img src="/static/room1.jpg" alt="Luxury">
+
+                </c:when>
+                <c:when test="${roomType.name == 'Executive'}">
+                    <img src="/static/room2.jpg" alt="Executive">
+                </c:when>
+                <c:when test="${roomType.name == 'Deluxe Suite'}">
+                    <img src="/static/room3.jpg" alt="Family">
+
+                </c:when>
+                <c:otherwise>
+                    <img src="/static/room4.jpg" alt="Studio Suite">
+                </c:otherwise>
+            </c:choose>
+            <div class="room-content">
+                <h2>${roomType.name}</h2>
+                <h2>$${roomType.price}/night</h2>
+                <p>${roomType.description}</p>
+                <div class="book center">
+                    <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button class="button">Book Room</button></a>
                 </div>
-                <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button class="button">Book Room</button></a>
-            </div>
-        </div>
-    </div>
-</c:forEach>
+                 </div>
+             </div>
+    </c:forEach>
 </div>
 
     <table border="1">

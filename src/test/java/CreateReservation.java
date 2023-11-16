@@ -22,5 +22,10 @@ class CreateReservation {
 		Reservation res = resman.getReservation(99999);// No existing reservation matches given id
 		assertNull(res, "Reservation fetch failed!");
     }
-
+	@Test void get(@TempDir Path tempDir) throws Exception {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/funkyinput.sqlite");
+		ReservationManager resman = new ReservationManager(conn);
+		Reservation res = resman.getReservation(99999);// No existing reservation matches given id
+		assertNull(res, "Reservation fetch failed!");
+    }
 }

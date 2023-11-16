@@ -77,6 +77,12 @@ public class CustomerManager {
 
 			// No suitable candidate found
 			System.out.println("<Customer.findOrMake> Create customer");
+
+			// Validate Email
+			if(email.indexOf('@')==-1){
+				return null;
+			}
+
 			customer = createCustomer(firstName, lastName, phoneNumber, email, address);
 			pstmt.close();
 
@@ -100,7 +106,10 @@ public class CustomerManager {
 	 */
 	public Customer createCustomer(String firstName, String lastName, String phoneNumber, String email, String address){
 		Customer customer = null;
-
+			// Validate Email
+			if(email.indexOf('@')==-1){
+				return null;
+			}
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO customers (firstName, lastName, phoneNumber, email, address)\n"
 			+ "VALUES (?, ?, ?, ?, ?) RETURNING *;");

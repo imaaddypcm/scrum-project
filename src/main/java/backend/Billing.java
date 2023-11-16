@@ -3,20 +3,44 @@ package backend;
 public class Billing {
     private int id;
     private String cardNumber;
-    private String cardExpiration;
-    private String ccvNumber;
+    private String cardExpiration;// Probably should be date instead of string
+    private String cvcNumber;
     private String nameOnCard;
     private String cardType;
     private String zipCode;
 
-    public Billing(int id, String cardNumber, String cardExpiration, String ccvNumber, String nameOnCard, String cardType, String zipCode) {
+    public Billing(int id, String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode) {
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
-        this.ccvNumber = ccvNumber;
+        this.cvcNumber = cvcNumber;
         this.nameOnCard = nameOnCard;
         this.cardType = cardType;
         this.zipCode = zipCode;
         this.id = id;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getcardExpiration() {
+        return cardExpiration;
+    }
+
+    public String getCvcNumber() {
+        return cvcNumber;
+    }
+
+    public String getNameOnCard() {
+        return nameOnCard;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public String getZipCode() {
+        return zipCode;
     }
 
     public int getId() {

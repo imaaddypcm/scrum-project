@@ -84,7 +84,14 @@
 
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>4cadmin</web-resource-name>
+            <url-pattern>/jsp/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>

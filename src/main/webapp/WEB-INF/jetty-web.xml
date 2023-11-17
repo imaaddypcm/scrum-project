@@ -3,10 +3,11 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
   <Get name="securityHandler">
-<!--    <Set name="loginService">
+    <Set name="loginService">
       <New class="org.eclipse.jetty.security.HashLoginService">
-		<Set name="config">jar:file:<Property name="jetty.home" default="."/>/webapps/riches.war!/WEB-INF/jetty-realm.properties</Set>
+      <Set name="name">webadmin</Set>
+      <Set name="config"><SystemProperty name="jetty.home" default="."/>/src/main/webapp/WEB-INF/jetty-users.properties</Set>
       </New>
-    </Set> -->
+    </Set>
   </Get>
 </Configure>

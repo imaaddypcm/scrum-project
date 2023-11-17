@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0"
+<web-app version="6.0"
         metadata-complete="false"
-        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns="https://jakarta.ee/xml/ns/jakartaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
 
     <servlet>
        <servlet-name>BookingForm</servlet-name>
@@ -81,4 +81,24 @@
        <servlet-name>helloWorld</servlet-name>
        <url-pattern>/helloworld</url-pattern>
    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>4cadmin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>managerAdmin1</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>webadmin</realm-name>
+    </login-config>
+    <auth-constraint>
+        <role-name>managerAdmin1</role-name>
+    </auth-constraint>
 </web-app>

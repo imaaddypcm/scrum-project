@@ -2,11 +2,11 @@ package server.manager;
 
 import java.io.*;
 import java.util.HashMap;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import javax.servlet.annotation.ServletSecurity.TransportGuarantee;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
+import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
 public class AdminServlet extends HttpServlet {

@@ -1,8 +1,8 @@
 package server;
 import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;

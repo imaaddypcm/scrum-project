@@ -30,36 +30,6 @@ public class ReserveServlet extends HttpServlet {
 	}
 
 	/**
-	 * Get hash map of arguments from GET query
-	 * @param source GET query string
-	 * @return Hash map of arguments
-	 */
-	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
-		HashMap<String, String> data = new HashMap<String, String>();
-
-		if (source == null)
-			return data;
-
-		final String[] arrParameters = source.split("&");
-		for (final String tempParameterString : arrParameters) {
-
-			final String[] arrTempParameter = tempParameterString
-					.split("=");
-
-			if (arrTempParameter.length >= 2) {
-				final String parameterKey = arrTempParameter[0];
-				final String parameterValue = arrTempParameter[1];
-				data.put(parameterKey, parameterValue);
-			} else {
-				final String parameterKey = arrTempParameter[0];
-				data.put(parameterKey, "");
-			}
-		}
-
-		return data;
-	}
-
-	/**
 	 * Foward attribue value from GET request to JSP
 	 * @param request    Servlet request structure
 	 * @param hm         Hash map of all GET arguments
@@ -80,7 +50,7 @@ public class ReserveServlet extends HttpServlet {
 		//String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
 
-		HashMap<String,String> hm = convertToQueryStringToHashMap(request.getQueryString());
+		HashMap<String,String> hm = utils.convertToQueryStringToHashMap(request.getQueryString());
 
 		forwardAttribute(request, hm, "room");
 		forwardAttribute(request, hm, "numRooms");
@@ -95,6 +65,7 @@ public class ReserveServlet extends HttpServlet {
 			ex.printStackTrace();
 		}
 	}
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);
@@ -152,7 +123,7 @@ public class ReserveServlet extends HttpServlet {
 		System.out.println("=> Create reservation\nroomType "+roomType+" numRooms: "+numRooms+" numGuests: "+numGuests+" Checkin: "+checkin+" Checkout: "+checkout);
 		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
 		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
-		Reservation res = resman.createReservation(customer, billing, roomType, numRooms, numGuests, checkin, checkout);
+		Reservation res = resman.createReservation(customer, billing, rtypeman.getRoomType(roomType), numRooms, numGuests, checkin, checkout);
 		HttpSession session = request.getSession();
 		session.setAttribute("confirmationId", res.getId());
 		response.sendRedirect("/complete");

@@ -17,6 +17,7 @@ public class ReservationManager {
 		Manager man = Manager.getManager(conn);
 		CustomerManager cman = man.getCustomerManager();
 		BillingManager bman = man.getBillingManager();
+		RoomTypeManager rtypeman = man.getRoomTypeManager();
 
 		reservations = new HashMap<>();
 		this.conn = conn;
@@ -27,7 +28,7 @@ public class ReservationManager {
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
 			+ " 'numberOfRooms'  INTEGER NOT NULL,\n"
 			+ " 'numberOfGuests' INTEGER NOT NULL,\n"
-			+ " 'roomType'       INTEGER NOT NULL,\n"
+			+ " 'roomTypeID'       INTEGER NOT NULL,\n"
 			+ " 'startDate'      DATE NOT NULL,\n"
 			+ " 'endDate'        DATE NOT NULL,\n"
 			+ " 'customerID'     INTEGER NOT NULL,\n"
@@ -43,13 +44,14 @@ public class ReservationManager {
 				int id = rs.getInt("id");
 				int numberOfRooms = rs.getInt("numberOfRooms");
 				int numberOfGuests = rs.getInt("numberOfGuests");
-				int roomType = rs.getInt("roomType");
+				int roomTypeID = rs.getInt("roomType");
 				Date startDate = rs.getDate("startDate");
 				Date endDate = rs.getDate("endDate");
 				int customerID = rs.getInt("customerID");
 				int billingID = rs.getInt("billingID");
 				Customer customer = cman.getCustomer(customerID);
 				Billing billing = bman.getBilling(billingID);
+				RoomType roomType = rtypeman.getRoomType(roomTypeID);
 				Reservation reservation = new Reservation(id, customer, billing, roomType, numberOfRooms, numberOfGuests, startDate, endDate);
 				reservations.put(id, reservation);
 			}
@@ -74,7 +76,7 @@ public class ReservationManager {
 	 * @param endTime The date when a reservation ends.
 	 * @return A
 	 */
-	public Reservation createReservation(Customer customer, Billing billing, int roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
+	public Reservation createReservation(Customer customer, Billing billing, RoomType roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
 		Reservation reservation = null;
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
@@ -84,7 +86,7 @@ public class ReservationManager {
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;");
 			pstmt.setInt(1, numberOfRooms);
 			pstmt.setInt(2, numberOfGuests);
-			pstmt.setInt(3, roomType);
+			pstmt.setInt(3, roomType.getId());
 			pstmt.setDate(4, startDate);
 			pstmt.setDate(5, endDate);
 			pstmt.setInt(6, customer.getId());
@@ -113,6 +115,10 @@ public class ReservationManager {
 
 	public Reservation getReservation(int id) {
 		return reservations.get(id);
+	}
+
+	public Iterable<Reservation> getReservations() {
+		return reservations.values();
 	}
 
 	/**

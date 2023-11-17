@@ -28,36 +28,6 @@ public class BookingServlet extends HttpServlet {
 	}
 
 	/**
-	 * Get hash map of arguments from GET query
-	 * @param source GET query string
-	 * @return Hash map of arguments
-	 */
-	private static HashMap<String, String> convertToQueryStringToHashMap(String source) {
-		HashMap<String, String> data = new HashMap<String, String>();
-
-		if (source == null)
-			return data;
-
-		final String[] arrParameters = source.split("&");
-		for (final String tempParameterString : arrParameters) {
-
-			final String[] arrTempParameter = tempParameterString
-					.split("=");
-
-			if (arrTempParameter.length >= 2) {
-				final String parameterKey = arrTempParameter[0];
-				final String parameterValue = arrTempParameter[1];
-				data.put(parameterKey, parameterValue);
-			} else {
-				final String parameterKey = arrTempParameter[0];
-				data.put(parameterKey, "");
-			}
-		}
-
-		return data;
-	}
-
-	/**
 	 * Foward attribue value from GET request to JSP
 	 * @param request    Servlet request structure
 	 * @param hm         Hash map of all GET arguments
@@ -78,7 +48,7 @@ public class BookingServlet extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
 
-		HashMap<String,String> hm = convertToQueryStringToHashMap(request.getQueryString());
+		HashMap<String,String> hm = utils.convertToQueryStringToHashMap(request.getQueryString());
 		System.out.println(hm);
 
 		if (!forwardAttribute(request, hm, "checkin"))

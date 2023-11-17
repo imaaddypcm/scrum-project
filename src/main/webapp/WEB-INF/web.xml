@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0"
-        metadata-complete="true"
+        metadata-complete="false"
         xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
@@ -50,6 +50,24 @@
         <url-pattern>/display</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+       <servlet-name>AdminPage</servlet-name>
+       <servlet-class>server.manager.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPage</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+       <servlet-name>AdminAddRoomType</servlet-name>
+       <servlet-class>server.manager.AddRoomTypeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAddRoomType</servlet-name>
+        <url-pattern>/admin/addRoomType</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/</url-pattern>
@@ -59,7 +77,6 @@
        <servlet-name>helloWorld</servlet-name>
        <servlet-class>server.HelloWorldServlet</servlet-class>
    </servlet>
-
    <servlet-mapping>
        <servlet-name>helloWorld</servlet-name>
        <url-pattern>/helloworld</url-pattern>

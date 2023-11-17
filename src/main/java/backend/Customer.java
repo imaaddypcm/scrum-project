@@ -1,15 +1,15 @@
 package backend;
 
 public class Customer {
-    String firstName;
-    String lastName;
-    String phoneNumber;
-    String email;
-    String country;
-    String state;
-    String city;
-    String address;
-    String zipcode;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String email;
+    private String country;
+    private String state;
+    private String city;
+    private String address;
+    private String zipcode;
     private int id = 0;
 
     public Customer(int id, String firstName, String lastName, String phoneNumber, String email, String address){
@@ -25,7 +25,34 @@ public class Customer {
         return id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public String getEmail() {
         return email;
+    }
+    public String getCountry() {
+        return country;
+    }
+    public String getState() {
+        return state;
+    }
+    public String getCity() {
+        return city;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getZipCode() {
+        return zipcode;
     }
 }

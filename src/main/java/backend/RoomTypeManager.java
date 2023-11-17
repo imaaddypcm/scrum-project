@@ -5,10 +5,10 @@ package backend;
 // Description
 // Rules
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RoomTypeManager {
-	private ArrayList<RoomType> roomTypes;
+	private HashMap<Integer, RoomType> roomTypes;
 	private Connection conn = null;
 
 	/**
@@ -17,8 +17,8 @@ public class RoomTypeManager {
 	 */
 	public RoomTypeManager(Connection conn) {
 		this.conn = conn;
-		roomTypes = new ArrayList<>();
-		try{
+		roomTypes = new HashMap<>();
+		try {
 			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'roomTypes' (\n"
@@ -42,7 +42,7 @@ public class RoomTypeManager {
 				int price = rs.getInt("price");
 
 				RoomType roomType = new RoomType(roomTypeID, roomName, roomDescription, roomRules, numberOfBeds, price);
-				roomTypes.add(roomType);
+				roomTypes.put(roomTypeID, roomType);
 			}
 			rs.close();
 			stmt.close();
@@ -70,12 +70,16 @@ public class RoomTypeManager {
 		}
 	}
 
+	public RoomType getRoomType(int id) {
+		return roomTypes.get(id);
+	}
+
 	/**
 	 * Get a room object's type
 	 * @return returns a list of room types
 	 */
-	public ArrayList<RoomType> getRoomTypes() {
-		return roomTypes;
+	public Iterable<RoomType> getRoomTypes() {
+		return roomTypes.values();
 	}
 
 	/**
@@ -103,7 +107,7 @@ public class RoomTypeManager {
 
 			System.out.println("=> <RoomType> Id: "+id+" Description: "+description+" Rules: "+rules);
 			roomType = new RoomType(id, name, description, rules, numberOfBeds, price);
-			roomTypes.add(roomType);
+			roomTypes.put(id, roomType);
 			pstmt.close();
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
@@ -128,11 +132,11 @@ public class RoomTypeManager {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO roomTypes (name, description, rules, beds, price)\n"
 			+ "VALUES (?,?,?,?,?) RETURNING *;");
 
-			pstmt.setString(2, name);
-			pstmt.setString(3, description);
-			pstmt.setString(4, rules);
-			pstmt.setInt(5, numberOfBeds);
-			pstmt.setInt(6, price);
+			pstmt.setString(1, name);
+			pstmt.setString(2, description);
+			pstmt.setString(3, rules);
+			pstmt.setInt(4, numberOfBeds);
+			pstmt.setInt(5, price);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -141,7 +145,7 @@ public class RoomTypeManager {
 
 			System.out.println("=> <RoomType> Id: "+id+" Description: "+description+" Rules: "+rules);
 			roomType = new RoomType(id, name, description, rules, numberOfBeds, price);
-			roomTypes.add(roomType);
+			roomTypes.put(id, roomType);
 			pstmt.close();
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());

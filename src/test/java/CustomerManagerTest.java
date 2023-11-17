@@ -24,7 +24,7 @@ class CustomerManagerTest {
 		String lastName = "Name2";
 		String phoneNumber = "Number";
 		String email = "email";
-		String address = "Adress";
+		String address = "Address";
 		//Customer customer = cman.createCustomer();// No existing reservation matches given id
 		//assertNull(customer, "Invalid email Address!");
     }

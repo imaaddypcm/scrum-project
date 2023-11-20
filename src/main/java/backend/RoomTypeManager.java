@@ -7,6 +7,15 @@ package backend;
 import java.sql.*;
 import java.util.HashMap;
 
+/**
+ *  Name:
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class RoomTypeManager {
 	private HashMap<Integer, RoomType> roomTypes;
 	private Connection conn = null;

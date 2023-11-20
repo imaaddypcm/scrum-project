@@ -9,6 +9,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Name:
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class RoomManager {
 	private ArrayList<Room> rooms;
 

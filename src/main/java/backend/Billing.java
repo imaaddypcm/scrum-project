@@ -1,5 +1,14 @@
 package backend;
 
+/**
+ *  Name: Billing
+    Date: ??/??/2023
+    Programmers:
+    Description: Represents customer billing information.
+    Functions: n/a
+    Data Structures: n/a
+    Algorithms: n/a
+*/
 public class Billing {
     private int id;
     private String cardNumber;

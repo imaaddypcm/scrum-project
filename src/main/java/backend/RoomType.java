@@ -1,5 +1,14 @@
 package backend;
 
+/**
+ *  Name:
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class RoomType {
 	private int id;
 	private String name;

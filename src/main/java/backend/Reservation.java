@@ -1,6 +1,15 @@
 package backend;
 import java.util.Date;
 
+/**
+ *  Name:
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class Reservation {
 	private int id;
 	private Customer customer;

@@ -6,6 +6,15 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+/**
+ *  Name: CustomerManager
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class CustomerManager {
 	private Map<Integer, Customer> customers;
 	private static String url = "jdbc:sqlite:hotel.sqlite";

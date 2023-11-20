@@ -4,6 +4,15 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  Name:
+    Date: ??/??/2023
+    Programmers:
+    Description:
+    Functions:
+    Data Structures:
+    Algorithms:
+*/
 public class ReservationManager {
 
 	private Map<Integer, Reservation> reservations;

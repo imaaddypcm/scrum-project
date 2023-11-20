@@ -12,12 +12,12 @@ import java.nio.file.Path;
 class CustomerManagerTest {
 	@Test void creation(@TempDir Path tempDir) throws Exception {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
-		CustomerManager resman = new CustomerManager(conn);
+		CustomerManager cman = new CustomerManager(conn);
 		System.out.println(tempDir.toAbsolutePath()+"/dummy.sqlite");
-		assertNotNull(resman, "Customer manager creation failed!");
+		assertNotNull(cman, "Customer manager creation failed!");
     }
 
-	@Test void symbolcheck(@TempDir Path tempDir) throws Exception {
+	@Test void symbolCheck(@TempDir Path tempDir) throws Exception {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/symbolcheck.sqlite");
 		CustomerManager cman = new CustomerManager(conn);
 		String firstName = "Name1";
@@ -25,7 +25,33 @@ class CustomerManagerTest {
 		String phoneNumber = "Number";
 		String email = "email";
 		String address = "Address";
-		//Customer customer = cman.createCustomer();// No existing reservation matches given id
-		//assertNull(customer, "Invalid email Address!");
+		Customer customer = cman.createCustomer(firstName, lastName, phoneNumber, email, address);
+		assertNotNull(customer, "Invalid email Address!");
+    }
+
+	@Test void testFindOrMake(@TempDir Path tempDir) throws Exception {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/symbolcheck.sqlite");
+		CustomerManager cman = new CustomerManager(conn);
+		String firstName = "Name1";
+		String lastName = "Name2";
+		String phoneNumber = "Number";
+		String email = "email";
+		String address = "Address";
+		Customer customer = cman.createCustomer(firstName, lastName, phoneNumber, email, address);
+		Customer customer2 = cman.findOrMake(firstName, lastName, phoneNumber, email, address)
+		assertTrue(customer == customer2, "findOrMake failed to retrieve previous customer.");
+    }
+
+	@Test void testGetCustomer(@TempDir Path tempDir) throws Exception {
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/symbolcheck.sqlite");
+		CustomerManager cman = new CustomerManager(conn);
+		String firstName = "Name1";
+		String lastName = "Name2";
+		String phoneNumber = "Number";
+		String email = "email";
+		String address = "Address";
+		Customer customer = cman.createCustomer(firstName, lastName, phoneNumber, email, address);
+		Customer customer2 = cman.getCustomer(customer.getId())
+		assertTrue(customer == customer2, "getCustomer failed to get customer.");
     }
 }

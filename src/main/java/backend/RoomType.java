@@ -54,6 +54,10 @@ public class RoomType {
 		return rules;
 	}
 
+	public int getNumberOfBeds() {
+		return numberOfBeds;
+	}
+
 	public int getPrice(){
 		return price;
 	}

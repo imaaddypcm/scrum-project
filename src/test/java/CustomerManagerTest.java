@@ -51,7 +51,7 @@ class CustomerManagerTest {
 		String email = "email";
 		String address = "Address";
 		Customer customer = cman.createCustomer(firstName, lastName, phoneNumber, email, address);
-		Customer customer2 = cman.getCustomer(customer.getId())
+		Customer customer2 = cman.getCustomer(customer.getId());
 		assertTrue(customer == customer2, "getCustomer failed to get customer.");
     }
 }

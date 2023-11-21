@@ -30,7 +30,7 @@ class CustomerManagerTest {
     }
 
 	@Test void testFindOrMake(@TempDir Path tempDir) throws Exception {
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/symbolcheck.sqlite");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/findormake.sqlite");
 		CustomerManager cman = new CustomerManager(conn);
 		String firstName = "Name1";
 		String lastName = "Name2";
@@ -43,7 +43,7 @@ class CustomerManagerTest {
     }
 
 	@Test void testGetCustomer(@TempDir Path tempDir) throws Exception {
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/symbolcheck.sqlite");
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/getcustomer.sqlite");
 		CustomerManager cman = new CustomerManager(conn);
 		String firstName = "Name1";
 		String lastName = "Name2";

@@ -38,7 +38,7 @@ class CustomerManagerTest {
 		String email = "email";
 		String address = "Address";
 		Customer customer = cman.createCustomer(firstName, lastName, phoneNumber, email, address);
-		Customer customer2 = cman.findOrMake(firstName, lastName, phoneNumber, email, address)
+		Customer customer2 = cman.findOrMake(firstName, lastName, phoneNumber, email, address);
 		assertTrue(customer == customer2, "findOrMake failed to retrieve previous customer.");
     }
 

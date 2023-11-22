@@ -1,6 +1,7 @@
 .vscode
 *.db
 *.sqlite
+*.sqbpro
 .*
 *.class
 *build*/

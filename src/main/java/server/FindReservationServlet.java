@@ -1,3 +1,8 @@
+/**
+ * MVC interface for searching reservation information using reservation number and email
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server;
 import java.io.*;
 import jakarta.servlet.*;
@@ -25,6 +30,11 @@ public class FindReservationServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Passes information inputed to respective manager classes to retrieve a Reservation instance
+	 * @param request    Servlet request structure
+	 * @param response   HTTP-specific response
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String email = request.getParameter("email");

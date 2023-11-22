@@ -1,3 +1,8 @@
+/**
+ * MVC interface for main page, displays available room types to book that meet specified criteria.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server;
 import java.io.*;
 import jakarta.servlet.*;

@@ -1,18 +1,14 @@
+/**
+ * Factory interface for managing rooms types using the specified database connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package backend;
 import java.util.Date;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *  Name:
-    Date: ??/??/2023
-    Programmers:
-    Description:
-    Functions:
-    Data Structures:
-    Algorithms:
-*/
 public class ReservationManager {
 
 	private Map<Integer, Reservation> reservations;

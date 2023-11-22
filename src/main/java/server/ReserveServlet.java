@@ -1,3 +1,9 @@
+/**
+ * MVC interface for creating a reservation after selecting your room type.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
+
 package server;
 import java.io.*;
 import jakarta.servlet.*;
@@ -44,6 +50,11 @@ public class ReserveServlet extends HttpServlet {
 		return false;
 	}
 
+	/**
+	 *
+	 * @param request    Servlet request structure
+	 * @param response   HTTP-specific response
+	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//HttpSession session = request.getSession();
@@ -66,6 +77,11 @@ public class ReserveServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Passes information inputed to respective manager class
+	 * @param request    Servlet request structure
+	 * @param response   HTTP-specific response
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);

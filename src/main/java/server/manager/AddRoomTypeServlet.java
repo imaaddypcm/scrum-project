@@ -1,3 +1,8 @@
+/**
+ * MVC interface for the manager feature allowing the creation of a room type
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server.manager;
 
 import java.io.*;
@@ -24,6 +29,11 @@ public class AddRoomTypeServlet extends HttpServlet {
 		rtypeman = man.getRoomTypeManager();
 	}
 
+	/**
+	 * Passes prospective room type information inputed to the instance of RoomTypeManager to add a new room type
+	 * @param request    Servlet request structure
+	 * @param response   HTTP-specific response
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);

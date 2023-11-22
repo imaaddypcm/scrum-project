@@ -1,14 +1,10 @@
+/**
+ * Stores customer billing information and interfaces with the database
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package backend;
 
-/**
- *  Name: Billing
-    Date: ??/??/2023
-    Programmers:
-    Description: Represents customer billing information.
-    Functions: n/a
-    Data Structures: n/a
-    Algorithms: n/a
-*/
 public class Billing {
     private int id;
     private String cardNumber;

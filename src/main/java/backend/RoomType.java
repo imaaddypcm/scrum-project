@@ -1,14 +1,10 @@
+/**
+ * Stores details for a given room type.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package backend;
 
-/**
- *  Name:
-    Date: ??/??/2023
-    Programmers:
-    Description:
-    Functions:
-    Data Structures:
-    Algorithms:
-*/
 public class RoomType {
 	private int id;
 	private String name;
@@ -37,28 +33,51 @@ public class RoomType {
 		this.numberOfBeds = numberOfBeds;
 		this.price = price;
 	}
-
+	/**
+	 * Get a RoomType object's id.
+	 * @return Returns id represented as an integer.
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Get a RoomType object's name.
+	 * @return Returns name represented as a string.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Get a RoomType object's description.
+	 * @return Returns description represented as a string.
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Get a RoomType object's rules.
+	 * @return Returns rules represented as a string.
+	 */
 	public String getRules() {
 		return rules;
 	}
 
+	/**
+	 * Get a RoomType object's number of beds.
+	 * @return Returns number of beds represented as an integer.
+	 */
 	public int getNumberOfBeds() {
 		return numberOfBeds;
 	}
 
-	public int getPrice(){
+	/**
+	 * Get a RoomType object's price.
+	 * @return Returns price represented as a int.
+	 */
+	public int getPrice() {
 		return price;
 	}
 }

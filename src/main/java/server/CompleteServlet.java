@@ -1,3 +1,8 @@
+/**
+ * MVC interface, displays confirmation message and reservation id.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server;
 
 import java.io.*;
@@ -5,10 +10,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 
 public class CompleteServlet extends HttpServlet {
-	private String mymsg;
-	public void init() throws ServletException {
-	   mymsg = "Http Servlet Demo";
-	}
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");

@@ -1,3 +1,8 @@
+/**
+ * MVC interface for the manager interface homepage
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server.manager;
 
 import java.io.*;

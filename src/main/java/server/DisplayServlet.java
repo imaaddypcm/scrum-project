@@ -1,3 +1,8 @@
+/**
+ * MVC interface for viewing and modifying reservation information after inputting a valid reservation id and email in FindReservationServlet
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package server;
 import java.io.*;
 import jakarta.servlet.*;

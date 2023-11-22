@@ -1,3 +1,9 @@
+/**
+ * Singleton interface for getting manager objects with specified datase connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
+
 package backend;
 
 import java.sql.Connection;

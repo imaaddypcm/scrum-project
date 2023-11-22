@@ -1,3 +1,8 @@
+/**
+ * Stores customer information
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 package backend;
 
 public class Customer {

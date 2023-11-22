@@ -13,7 +13,6 @@ class CreateReservation {
 	@Test void creation(@TempDir Path tempDir) throws Exception {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
 		ReservationManager resman = new ReservationManager(conn);
-		System.out.println(tempDir.toAbsolutePath()+"/dummy.sqlite");
 		assertNotNull(resman, "Reservation manager creation failed!");
     }
 	@Test void getInvalidID(@TempDir Path tempDir) throws Exception {

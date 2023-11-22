@@ -1,8 +1,3 @@
-/**
- * Factory interface for managing rooms using the specified database connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package backend;
 
 import java.sql.Connection;
@@ -14,6 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Factory interface for managing rooms using the specified database connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class RoomManager {
 	private ArrayList<Room> rooms;
 
@@ -78,7 +78,7 @@ public class RoomManager {
 	public Room createRoom(int roomNumber, int roomType) {
 		Room room = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (name, type)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (number, type)\n"
 			+ "VALUES (?, ?) RETURNING *;");
 
 			//Insert data
@@ -86,7 +86,7 @@ public class RoomManager {
 			pstmt.setInt(2, roomType);
 
 			ResultSet rs = pstmt.executeQuery();
-			int id = rs.getInt("id");
+			int id = rs.getInt("number");
 			rs.close();
 			assert(id == roomNumber);
 

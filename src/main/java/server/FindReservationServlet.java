@@ -1,8 +1,3 @@
-/**
- * MVC interface for searching reservation information using reservation number and email
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package server;
 import java.io.*;
 import jakarta.servlet.*;
@@ -10,15 +5,29 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
+/**
+ * MVC interface for searching reservation information using reservation number and email
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class FindReservationServlet extends HttpServlet {
 	private ReservationManager resman = null;
 	private CustomerManager cman = null;
 
+	/**
+	 * Initialize manager objects used by FindReservationServlet
+	 */
 	public void init() throws ServletException {
 		Manager man = Manager.getManager();
 		resman = man.getReservationManager();
 		cman = man.getCustomerManager();
 	}
+
+	/**
+	 * Displays find reservation page on GET request
+	 * @param request    User request structure
+	 * @param response   HTTP response
+	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
@@ -31,9 +40,9 @@ public class FindReservationServlet extends HttpServlet {
 	}
 
 	/**
-	 * Passes information inputed to respective manager classes to retrieve a Reservation instance
-	 * @param request    Servlet request structure
-	 * @param response   HTTP-specific response
+	 * Validates POST request and redirects to display, otherwise display the find reservation page with an error message.
+	 * @param request    User request structure
+	 * @param response   HTTP response
 	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

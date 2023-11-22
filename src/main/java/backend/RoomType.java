@@ -1,10 +1,10 @@
+package backend;
+
 /**
  * Stores details for a given room type.
  * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
  * @version Nov 21, 2023
  */
-package backend;
-
 public class RoomType {
 	private int id;
 	private String name;
@@ -25,6 +25,15 @@ public class RoomType {
 	Studio/Suite
 	 */
 
+	/**
+	 * Create RoomType object, associated with a room type entry in the database.
+	 * @param id ID associated with room type entry
+	 * @param name Name of the room type
+	 * @param description Description of the room type
+	 * @param rules Description of the rules associated with room type
+	 * @param numberOfBeds Number of beds in type of room
+	 * @param price Price associated with the room type
+	 */
 	public RoomType(int id, String name, String description, String rules, int numberOfBeds, int price) {
 		this.id = id;
 		this.name = name;
@@ -33,6 +42,7 @@ public class RoomType {
 		this.numberOfBeds = numberOfBeds;
 		this.price = price;
 	}
+
 	/**
 	 * Get a RoomType object's id.
 	 * @return Returns id represented as an integer.

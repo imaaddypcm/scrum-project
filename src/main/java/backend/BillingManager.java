@@ -1,14 +1,13 @@
-/**
- * Factory interface for managing billing records using the specified database connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package backend;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.HashMap;
-
+/**
+	 * Factory interface for managing billing records using the specified database connection.
+	 * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+	 * @version Nov 21, 2023
+	 */
 public class BillingManager {
 	private Map<Integer, Billing> billings;
 	private Connection conn = null;

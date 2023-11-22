@@ -2,6 +2,11 @@ package server;
 
 import java.util.HashMap;
 
+/**
+ * Utility class providing methods for handling server-side operations.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class utils {
 	/**
 	 * Get hash map of arguments from GET query

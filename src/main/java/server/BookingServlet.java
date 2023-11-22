@@ -1,8 +1,3 @@
-/**
- * MVC interface for main page, displays available room types to book that meet specified criteria.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package server;
 import java.io.*;
 import jakarta.servlet.*;
@@ -15,13 +10,20 @@ import java.time.LocalDate;
 
 import backend.*;
 
+/**
+ * MVC interface for main page, displays available room types to book that meet specified criteria.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class BookingServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
 	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
-
+	/**
+	 * Initialize manager objects used by BookingServlet
+	 */
 	public void init() throws ServletException {
 		//getServletContext()
 		Manager man = Manager.getManager();
@@ -47,6 +49,11 @@ public class BookingServlet extends HttpServlet {
 		return false;
 	}
 
+	/**
+	 * Displays a list of rooms and sets default values for the filters
+	 * @param request    User request structure
+	 * @param response   HTTP response
+	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");

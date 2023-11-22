@@ -1,9 +1,3 @@
-/**
- * MVC interface for creating a reservation after selecting your room type.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
-
 package server;
 import java.io.*;
 import jakarta.servlet.*;
@@ -19,6 +13,11 @@ import java.time.ZoneId;
 
 import backend.*;
 
+/**
+ * MVC interface for creating a reservation after selecting your room type.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class ReserveServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
@@ -26,6 +25,9 @@ public class ReserveServlet extends HttpServlet {
 	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
 
+	/**
+	 * Initialize manager objects used by reserve servlet
+	 */
 	public void init() throws ServletException {
 		Manager man = Manager.getManager();
 		cman = man.getCustomerManager();

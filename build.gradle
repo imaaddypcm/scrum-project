@@ -40,6 +40,10 @@ java {
     }
 }
 
+javadoc {
+    options.addStringOption("version", "-author")
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()

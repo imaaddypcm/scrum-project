@@ -1,12 +1,11 @@
+package backend;
+import java.util.Date;
+
 /**
  * Stores details for a given reservation.
  * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
  * @version Nov 21, 2023
  */
-
-package backend;
-import java.util.Date;
-
 public class Reservation {
 	private int id;
 	private Customer customer;

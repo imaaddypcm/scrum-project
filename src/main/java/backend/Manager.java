@@ -1,15 +1,13 @@
-/**
- * Singleton interface for getting manager objects with specified datase connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
-
 package backend;
 
 import java.sql.Connection;
 import java.util.Map;
 import java.util.HashMap;
-
+/**
+ * Singleton interface for getting manager objects with specified datase connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class Manager {
 	private static Map<Connection, Manager> managers = null;
 
@@ -45,7 +43,11 @@ public class Manager {
 		return getManager(DatabaseConnection.getConnection());
 	}
 
-	public Manager(Connection conn) {
+	/**
+	 * Create new Manager object for specified connection
+	 * @param conn
+	 */
+	private Manager(Connection conn) {
 		this.conn = conn;
 	}
 

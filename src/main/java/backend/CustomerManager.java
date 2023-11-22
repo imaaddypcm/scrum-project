@@ -1,8 +1,3 @@
-/**
- * Factory interface for managing customer records using the specified database connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package backend;
 import java.util.Date;
 import java.sql.*;
@@ -10,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Pattern;
-
+/**
+ * Factory interface for managing customer records using the specified database connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class CustomerManager {
 	private Map<Integer, Customer> customers;
 	private static String url = "jdbc:sqlite:hotel.sqlite";

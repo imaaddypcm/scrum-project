@@ -1,8 +1,3 @@
-/**
- * MVC interface for the manager interface homepage
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package server.manager;
 
 import java.io.*;
@@ -14,13 +9,20 @@ import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
+/**
+ * MVC interface for the manager interface homepage
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class AdminServlet extends HttpServlet {
 	private CustomerManager cman = null;
 	private ReservationManager resman = null;
 	private RoomManager rooman = null;
 	private BillingManager bman = null;
 	private RoomTypeManager rtypeman = null;
-
+	/**
+	 * Initialize manager objects used by AdminServlet
+	 */
 	public void init() throws ServletException {
 		Manager man = Manager.getManager();
 		resman = man.getReservationManager();
@@ -30,6 +32,11 @@ public class AdminServlet extends HttpServlet {
 		cman = man.getCustomerManager();
 	}
 
+	/**
+	 * Displays administrator page
+	 * @param request    User request structure
+	 * @param response   HTTP response
+	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");

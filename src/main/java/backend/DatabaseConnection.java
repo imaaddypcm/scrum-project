@@ -1,17 +1,18 @@
-/**
- * Singleton interface for getting a connection to hotel.sqlite.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package backend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Singleton interface for getting a connection to hotel.sqlite.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class DatabaseConnection {
 	private static Connection conn = null;
 	private static String url = "jdbc:sqlite:hotel.sqlite";
+
 	/**
 	 * Returns connection to hotel.sqlite if exists, otherwise creates one.
 	 * @return Database connection to hotel.sqlite

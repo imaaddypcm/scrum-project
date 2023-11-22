@@ -1,9 +1,3 @@
-/**
- * Factory interface for managing rooms types using the specified database connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
-
 package backend;
 
 // id - autoincrement
@@ -13,12 +7,17 @@ package backend;
 import java.sql.*;
 import java.util.HashMap;
 
+/**
+ * Factory interface for managing rooms types using the specified database connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class RoomTypeManager {
 	private HashMap<Integer, RoomType> roomTypes;
 	private Connection conn = null;
 
 	/**
-	 * Constructs aRoomTypeManager object.
+	 * Constructs a RoomTypeManager object.
 	 * @param conn A connection with a specific database.
 	 */
 	public RoomTypeManager(Connection conn) {
@@ -76,6 +75,10 @@ public class RoomTypeManager {
 		}
 	}
 
+	/**
+	 * Retrieves a RoomType object with the specifies ID
+	 * @return Returns the RoomType object corresponding to the provided ID, or null if not found
+	 */
 	public RoomType getRoomType(int id) {
 		return roomTypes.get(id);
 	}

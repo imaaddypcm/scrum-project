@@ -1,14 +1,14 @@
-/**
- * Factory interface for managing rooms types using the specified database connection.
- * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
- * @version Nov 21, 2023
- */
 package backend;
 import java.util.Date;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory interface for managing rooms types using the specified database connection.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Nov 21, 2023
+ */
 public class ReservationManager {
 
 	private Map<Integer, Reservation> reservations;
@@ -118,10 +118,19 @@ public class ReservationManager {
 		return reservation;
 	}
 
+	/**
+	 * Get reservation with given id
+	 * @param id Reservation number
+	 * @return Reservation object
+	 */
 	public Reservation getReservation(int id) {
 		return reservations.get(id);
 	}
 
+	/**
+	 * Gets all reservations
+	 * @return Iterable of reservations
+	 */
 	public Iterable<Reservation> getReservations() {
 		return reservations.values();
 	}

@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Form</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/booking.css">
+    <link rel="stylesheet" type="text/css" href="/static/nav.css">
+    <script src="/static/scroll.js"></script>
+    <script src="/static/nav.js"></script>
+
 
 
 </head>
 <body>
-
-
     <div class="navbar">
         <span class="navbar-logo">Four Corners</span>
         <div class="navbar-links">
@@ -23,9 +25,18 @@
             <a href="#">Help</a>
         </div>
     </div>
+    <div class="background-container"></div>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Four Corners</h1>
+            <button class="button" onclick="scrollToRooms()">Book a Room</button>
+        </div>
+    </section>
 
 
-<div>
+
+<div id="roomList">
     <form id="bookingForm" action="/" method="get">
         <div class="form-group">
             <label for="checkin">Check In:</label>
@@ -50,7 +61,7 @@
 <div class="roomListHeader">
     <h3>List of Rooms</h3>
 </div>
-<div class="room-container">
+<div class="room-container" >
     <c:forEach items="${roomTypes}" var="roomType">
         <div class="room">
             <c:choose>

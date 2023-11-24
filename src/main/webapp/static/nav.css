@@ -1,0 +1,66 @@
+
+body {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+	overflow-x: hidden;
+}
+
+@font-face {
+    font-family: "Bitstream Vera Serif Bold";
+    src: url("https://mdn.github.io/css-examples/web-fonts/VeraSeBd.ttf");
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Bitstream Vera Serif Bold';
+    white-space: nowrap;
+    padding-left: 30px;
+}
+
+.navbar {
+    background-color: rgba(20, 32, 46, 0.908);
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: background-color 0.2s ease;
+}
+
+
+
+
+.navbar-logo-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Bitstream Vera Serif Bold', serif;
+    margin-right: 20px;
+}
+
+
+.navbar-logo-link:hover {
+    text-decoration: underline;
+}
+
+
+
+.navbar-links {
+    margin-right: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 20px;
+}

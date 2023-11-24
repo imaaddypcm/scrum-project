@@ -24,6 +24,7 @@ public class ReservationManager {
 		BillingManager bman = man.getBillingManager();
 		RoomTypeManager rtypeman = man.getRoomTypeManager();
 
+
 		reservations = new HashMap<>();
 		this.conn = conn;
 		try {
@@ -143,5 +144,9 @@ public class ReservationManager {
 	public boolean cancelReservation(int reservationId) {
         //DELETE FROM reservation WHERE id = 1;
 		return false;
+	}
+
+	public Reservation getReservationById(Long reservationId) {
+		return null;
 	}
 }

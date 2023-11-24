@@ -1,0 +1,59 @@
+body {
+    background-color: #ffffff;
+    margin-top: 100px;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.room-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.reservation {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #d0d4d8;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.reservation-number {
+    font-size: 30px;
+    margin: 0;
+    text-align: left;
+}
+
+.reservation-content {
+    width: 70%;
+}
+
+.reservation p {
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.reservation-button {
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reservation-button:hover {
+    background-color: #45a049;
+}

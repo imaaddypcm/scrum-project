@@ -5,9 +5,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/nav.css">
+	<link rel="stylesheet" type="text/css" href="/static/admin.css">
+
 </head>
 <body>
+	<div class="navbar">
+        <span class="navbar-logo">Four Corners Admin</span>
+        <div class="navbar-links">
+            <a href="#">Home</a>
+            <a href="/find-reservation">Reservations</a>
+        </div>
+    </div>
+
+	<div class="room-container">
+		<c:forEach items="${reservations}" var="reservation">
+    <div class="reservation">
+        <h2>Reservation #${reservation.id}</h2>
+        <div class="reservation-content">
+            <p>Guest: ${reservation.customer.firstName} ${reservation.customer.lastName}</p>
+            <p>Room Type: ${reservation.roomType.name}</p>
+            <p>Start Date: ${reservation.startDate}</p>
+            <p>End Date: ${reservation.endDate}</p>
+            <p>Number of Rooms: ${reservation.numberOfRooms}</p>
+            <p>Number of Guests: ${reservation.numberOfGuests}</p>
+            <p>Billing Number: ${reservation.billing.id}</p>
+        </div>
+        <a href="/admin/viewReservationDetails?id=${reservation.id}" class="reservation-button">View Details</a>
+    </div>
+</c:forEach>
+	</div>
 
 <table border="1">
 	<tr>

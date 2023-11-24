@@ -1,0 +1,335 @@
+#bookingForm {
+    display: flex;
+    flex-direction: row;
+    border-style: ridge;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #2b4257;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.roomListHeader {
+    background-color: #2b4257;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-style: double;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    margin-top: 10px;
+    height: 60px;
+}
+
+.roomListHeader h3 {
+    color: #ffffff;
+    margin: 10px 0;
+    font-size: 30px;
+}
+
+.roomTypeInfo {
+    display: flex;
+    margin-left: auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 25px;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+}
+
+.form-group input,
+.form-group select {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    width: 90%;
+    font-size: 15px;
+}
+
+input[type="submit"] {
+    background-color: #7693a9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: #465865;
+}
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}
+
+.button {
+    background-color: #7693a9;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+}
+
+.book .button:hover {
+    background-color: #465865;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.book .button {
+    background-color: white;
+    color: black;
+    border: 2px solid #7693a9;
+    border-radius: 15px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.band {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 60%;
+    max-width: 1240px;
+    max-height: 1240px;
+    margin: 0 auto;
+}
+
+@media only screen and (min-width: 500px) {
+    .item-1 {
+        grid-column: 1/ span 2;
+    }
+    .item-1 h1 {
+        font-size: 30px;
+    }
+}
+
+.card {
+    min-height: 80%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    text-decoration: none;
+    color: #444;
+    position: relative;
+    top: 0;
+    transition: all .1s ease-in;
+    padding: 20px;
+}
+
+.card article {
+    padding: 20px;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.card .thumb {
+    padding-bottom: 30%;
+    background-size: cover;
+    background-position: center center;
+}
+
+.card p {
+    flex: 1;
+    line-height: 1.4;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+.card span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin: 2em 0 0 0;
+}
+
+.card img {
+    width: 30%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    justify-content: center;
+}
+
+.thumb {
+    width: 30rem;
+}
+
+body {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.room {
+    width: 75%;
+    background-color: #d0d4d8;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.room img {
+    max-width: 40%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 40px;
+    box-shadow: 5px 5px 5px #a7a7a76c;
+}
+
+.room-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin-right: 50px;
+}
+
+.room h2 {
+    font-size: 30px;
+    margin: 0;
+    text-align: right;
+}
+
+.room p {
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: right;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 300px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.button:hover {
+    background-color: #005dbb;
+}
+
+.search-form {
+    background-color: #56aafff0;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.search-form input, .search-form select {
+    padding: 5px;
+    margin: 5px;
+}
+
+.hero {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(hero2.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.hero h1 {
+    font-size: 5em;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.hero .button {
+    background-color: rgba(255, 255, 255, 0.192);
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    transition: background-color 0.4s ease;
+}
+
+.hero .button:hover {
+    background-color: black;
+    color: white;
+}

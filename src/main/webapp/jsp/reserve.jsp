@@ -5,9 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Reserve Room</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/nav.css">
+    <link rel="stylesheet" type="text/css" href="/static/reserve.css">
 </head>
 <body>
+    <body>
+        <div class="navbar">
+            <span class="navbar-logo">Four Corners</span>
+            <div class="navbar-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="/find-reservation">My Reservations</a>
+                <a href="#">Help</a>
+            </div>
+        </div>
 	<p>Hello reservation</p>
 	<form action="" method="post">
         <input type="hidden" id="roomType" name="roomType" value="${param.room}" readonly>

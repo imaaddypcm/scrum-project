@@ -141,7 +141,18 @@ public class ReservationManager {
 	 * @return True if the reservation is canceled, false if otherwise
 	 */
 	public boolean cancelReservation(int reservationId) {
-        //DELETE FROM reservation WHERE id = 1;
+		/*
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM reservation WHERE id = ?;");
+			pstmt.setInt(1, reservationId);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+		*/
 		return false;
 	}
 }

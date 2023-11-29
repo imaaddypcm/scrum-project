@@ -14,6 +14,8 @@ public class ReservationManager {
 	private Map<Integer, Reservation> reservations;
 	private Connection conn = null;
 
+	RoomManager rooman = null;
+
 	/**
 	 * Constructor for objects of class ReservationManager.
 	 * @param conn The database conncection to use for reservation managment.
@@ -23,6 +25,7 @@ public class ReservationManager {
 		CustomerManager cman = man.getCustomerManager();
 		BillingManager bman = man.getBillingManager();
 		RoomTypeManager rtypeman = man.getRoomTypeManager();
+		rooman = man.getRoomManager();
 
 		reservations = new HashMap<>();
 		this.conn = conn;
@@ -49,7 +52,7 @@ public class ReservationManager {
 				int id = rs.getInt("id");
 				int numberOfRooms = rs.getInt("numberOfRooms");
 				int numberOfGuests = rs.getInt("numberOfGuests");
-				int roomTypeID = rs.getInt("roomType");
+				int roomTypeID = rs.getInt("roomTypeID");
 				Date startDate = rs.getDate("startDate");
 				Date endDate = rs.getDate("endDate");
 				int customerID = rs.getInt("customerID");
@@ -87,7 +90,7 @@ public class ReservationManager {
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
 		try {
 			// Insert data
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, roomType, startDate, endDate, customerID, billingID)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, roomTypeID, startDate, endDate, customerID, billingID)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *;");
 			pstmt.setInt(1, numberOfRooms);
 			pstmt.setInt(2, numberOfGuests);
@@ -141,18 +144,30 @@ public class ReservationManager {
 	 * @return True if the reservation is canceled, false if otherwise
 	 */
 	public boolean cancelReservation(int reservationId) {
-		/*
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM reservation WHERE id = ?;");
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM reservations WHERE id = ?;");
 			pstmt.setInt(1, reservationId);
 			pstmt.executeUpdate();
 			pstmt.close();
+			reservations.remove(reservationId);
+			return true;
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 			System.out.println("SQLState: " + ex.getSQLState());
 			System.out.println("VendorError: " + ex.getErrorCode());
 		}
-		*/
+
 		return false;
+	}
+
+	private int getNumOfActiveReservations(Date start, Date end) {
+		int overlaps = 0;
+		for (Reservation reservation : reservations.values()) {
+			if (!reservation.getStartDate().after(end) && !start.after(reservation.getEndDate())) {
+				overlaps++;
+			}
+			//if ((StartDate1 <= EndDate2) and (StartDate2 <= EndDate1))
+		}
+		return overlaps;
 	}
 }

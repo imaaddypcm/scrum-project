@@ -10,15 +10,16 @@
 <body>
 
 <c:if test="${not empty reservation}">
-<p>Reservation id: ${reservation.id}</p>
-<p>Checkin Date: ${reservation.startDate}</p>
-<p>Checkout Date: ${reservation.endDate}</p>
-<p>Room Type: ${reservation.roomType}</p>
-<p>Rooms: ${reservation.numberOfRooms}</p>
-<p>Guests: ${reservation.numberOfGuests}</p>
+	<p>Reservation id: ${reservation.id}</p>
+	<p>Checkin Date: ${reservation.startDate}</p>
+	<p>Checkout Date: ${reservation.endDate}</p>
+	<p>Room Type: ${reservation.roomType}</p>
+	<p>Rooms: ${reservation.numberOfRooms}</p>
+	<p>Guests: ${reservation.numberOfGuests}</p>
+	<a href="/cancelReservation"><button>Cancel reservation</button></a>
 </c:if>
 <c:if test="${empty reservation}">
-<h1>Stale request</h1>
+	<h1>Stale request</h1>
 </c:if>
 </body>
 </html>

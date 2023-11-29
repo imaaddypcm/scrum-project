@@ -42,6 +42,7 @@ public class AdminServlet extends HttpServlet {
 		response.setContentType("text/html");
 		request.setAttribute("reservations", resman.getReservations());
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
+		request.setAttribute("rooms", rooman.getRooms());
 		request.setAttribute("customers", cman.getCustomers());
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/admin.jsp");
 		try {

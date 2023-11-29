@@ -7,7 +7,7 @@ package backend;
  */
 public class Room {
 	private int roomNumber;
-	private int roomType;
+	private RoomType roomType;
 	//private String rules;
 
 	/**
@@ -15,7 +15,7 @@ public class Room {
 	 * @param roomNumber Number associated with room entry in the database
 	 * @param roomType The type of the room
 	 */
-	public Room(int roomNumber, int roomType) {
+	public Room(int roomNumber, RoomType roomType) {
 		this.roomNumber = roomNumber;
 		this.roomType   = roomType;
 	}
@@ -24,7 +24,7 @@ public class Room {
 	 * Get a Room object's number.
 	 * @return Returns a room number represented as an integer.
 	 */
-	public int getRoomNumber() {
+	public int getNumber() {
 		return roomNumber;
 	}
 
@@ -32,7 +32,7 @@ public class Room {
 	 * Get a Room object's RoomType.
 	 * @return Returns a room type represented as an integer.
 	 */
-	public int getRoomType() {
+	public RoomType getType() {
 		return roomType;
 	}
 }

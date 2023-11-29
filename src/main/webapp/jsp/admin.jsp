@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<h1>Reservations</h1>
 <table border="1">
 	<tr>
 		<th>Reservation ID</th>
@@ -34,6 +35,7 @@
 	</c:forEach>
 </table>
 
+<h1>Room Types</h1>
 <table border="1">
 	<tr>
 		<th>Name</th>
@@ -71,7 +73,7 @@
 	<input type="submit" value="Submit">
 </form>
 
-
+<h1>Customers</h1>
 <table border="1">
 	<tr>
 		<th>id</th>
@@ -98,6 +100,35 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<h1>Rooms</h1>
+<table border="1">
+	<tr>
+		<th>Room Number</th>
+		<th>Room Type</th>
+	</tr>
+	<c:forEach items="${rooms}" var="room">
+		<tr>
+			<td>${room.number}</td>
+			<td>${room.type.name}</td>
+		</tr>
+	</c:forEach>
+</table>
+<form action="/admin/addRoom" method="post">
+	<h1>Add Room</h1>
+	<div class="addRoom">
+		<label for="roomNumber">Room Number:</label>
+		<input type="number" id="roomNumber" name="roomNumber" required>
+
+		<label for="roomType">Room Type:</label>
+            <select id="roomType" name="roomType" required>
+				<c:forEach items="${roomTypes}" var="roomType">
+						<option value= "${roomType.id}">${roomType.name}</option>
+				</c:forEach>
+        	</select>
+	</div>
+	<input type="submit" value="Submit">
+</form>
 
 </body>
 </html>

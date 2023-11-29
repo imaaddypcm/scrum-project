@@ -25,6 +25,8 @@ public class RoomManager {
 	public RoomManager(Connection conn){
 		this.conn = conn;
 		rooms = new ArrayList<>();
+		Manager man = Manager.getManager(conn);
+		RoomTypeManager rtypeman = man.getRoomTypeManager();
 		try{
 			/*CREATE TABLE "rooms" (
 			"roomID"	INTEGER,
@@ -48,9 +50,9 @@ public class RoomManager {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM rooms");
 			while(rs.next()){
 				int roomNumber = rs.getInt("number");
-				int roomType   = rs.getInt("type");
+				int roomTypeID   = rs.getInt("type");
 
-				Room room = new Room(roomNumber, roomType);
+				Room room = new Room(roomNumber, rtypeman.getRoomType(roomTypeID));
 				rooms.add(room);
 			}
 
@@ -75,7 +77,7 @@ public class RoomManager {
 	 * @param roomType The type of the room to create.
 	 * @return The new Room object, or null if an error occurs.
 	 */
-	public Room createRoom(int roomNumber, int roomType) {
+	public Room createRoom(int roomNumber, RoomType roomType) {
 		Room room = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (number, type)\n"
@@ -83,7 +85,7 @@ public class RoomManager {
 
 			//Insert data
 			pstmt.setInt(1, roomNumber);
-			pstmt.setInt(2, roomType);
+			pstmt.setInt(2, roomType.getId());
 
 			ResultSet rs = pstmt.executeQuery();
 			int id = rs.getInt("number");
@@ -105,8 +107,6 @@ public class RoomManager {
 
 		return room;
 	}
-
-
 
 }
 

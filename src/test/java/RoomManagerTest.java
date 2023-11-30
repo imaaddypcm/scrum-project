@@ -19,13 +19,13 @@ class RoomManagerTest {
 
 	@Test void testCreateRoom(@TempDir Path tempDir) throws Exception {
 		int roomNumber = 1;
-		int roomType = 0;
+		RoomType roomType = new RoomType(0, "example room type", "example room type", "", 1, 1);
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/createRoom.sqlite");
 		RoomManager rooman = new RoomManager(conn);
 		assertNotNull(rooman, "Reservation manager creation failed!");
 		Room room = rooman.createRoom(roomNumber,roomType);
 		assertNotNull(room);
-		assertEquals(roomNumber, room.getRoomNumber(), "Invalid room number");
-		assertEquals(roomType, room.getRoomType(), "Invalid room type");
+		assertEquals(roomNumber, room.getNumber(), "Invalid room number");
+		assertEquals(roomType, room.getType(), "Invalid room type");
 	}
 }

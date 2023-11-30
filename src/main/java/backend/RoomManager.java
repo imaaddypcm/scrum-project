@@ -71,6 +71,16 @@ public class RoomManager {
 		return rooms;
 	}
 
+	public List<Room> getRooms(RoomType rt) {
+		List<Room> ret = new ArrayList<>();
+		for (Room room : rooms) {
+			if (room.getType().getId() == rt.getId()) {
+				ret.add(room);
+			}
+		}
+		return ret;
+	}
+
 	/**
 	 * Add a room to be managed by this RoomManager.
 	 * @param roomNumber The number of the room to create.

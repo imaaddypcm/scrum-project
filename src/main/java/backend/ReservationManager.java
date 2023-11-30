@@ -84,10 +84,15 @@ public class ReservationManager {
 	 * @param endTime The date when a reservation ends.
 	 * @return A
 	 */
-	public Reservation createReservation(Customer customer, Billing billing, RoomType roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) {
+	public Reservation createReservation(Customer customer, Billing billing, RoomType roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) throws ReservationOverflowException {
 		Reservation reservation = null;
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
+
+		if (getNumOfActiveReservations(startTime, endTime) >= rooman.getRooms(roomType).size()) {
+			throw new ReservationOverflowException("Too many reservations for given period specified.");
+		}
+
 		try {
 			// Insert data
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO reservations (numberOfRooms, numberOfGuests, roomTypeID, startDate, endDate, customerID, billingID)\n"
@@ -163,10 +168,9 @@ public class ReservationManager {
 	private int getNumOfActiveReservations(Date start, Date end) {
 		int overlaps = 0;
 		for (Reservation reservation : reservations.values()) {
-			if (!reservation.getStartDate().after(end) && !start.after(reservation.getEndDate())) {
+			if (!reservation.getStartDate().after(end) && !reservation.getEndDate().before(start)) {
 				overlaps++;
 			}
-			//if ((StartDate1 <= EndDate2) and (StartDate2 <= EndDate1))
 		}
 		return overlaps;
 	}

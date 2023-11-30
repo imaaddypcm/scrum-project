@@ -141,7 +141,13 @@ public class ReserveServlet extends HttpServlet {
 		System.out.println("=> Create reservation\nroomType "+roomType+" numRooms: "+numRooms+" numGuests: "+numGuests+" Checkin: "+checkin+" Checkout: "+checkout);
 		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
 		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
-		Reservation res = resman.createReservation(customer, billing, rtypeman.getRoomType(roomType), numRooms, numGuests, checkin, checkout);
+		Reservation res = null;
+		try {
+			res = resman.createReservation(customer, billing, rtypeman.getRoomType(roomType), numRooms, numGuests, checkin, checkout);
+		} catch (ReservationOverflowException ex) {
+			response.sendRedirect("/?tooManyReservations=1");
+			return;
+		}
 		HttpSession session = request.getSession();
 		session.setAttribute("confirmationId", res.getId());
 		response.sendRedirect("/complete");

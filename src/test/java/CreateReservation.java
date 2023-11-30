@@ -62,6 +62,9 @@ class CreateReservation {
 		RoomType roomType = rtypeman.addRoomType(name, description, rules, numberOfBeds, price);
 		assertNotNull(roomType, "Room type creation failed!");
 
+		RoomManager rooman = Manager.getManager(conn).getRoomManager();
+		rooman.createRoom(1, roomType);
+
 		Date today = new Date();
 		Date tomorrow = new Date();
 		Reservation res = resman.createReservation(customer, billing, roomType, 1, 2, today, tomorrow);

@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
+// Arie Nov 30 2023: TODO: Daily occupancy rate and Revenue tracking - Weekly or monthly
+
 /**
  * MVC interface for the manager interface homepage
  * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita

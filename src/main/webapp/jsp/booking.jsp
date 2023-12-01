@@ -17,10 +17,7 @@
     <div class="navbar">
         <span class="navbar-logo">Four Corners</span>
         <div class="navbar-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
             <a href="/find-reservation">My Reservations</a>
-            <a href="#">Help</a>
         </div>
     </div>
 

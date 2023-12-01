@@ -70,6 +70,13 @@ public class ReserveServlet extends HttpServlet {
 		forwardAttribute(request, hm, "numGuests");
 		forwardAttribute(request, hm, "checkin");
 		forwardAttribute(request, hm, "checkout");
+		if (hm.containsKey("room")) {
+			try {
+				request.setAttribute("type", rtypeman.getRoomType(Integer.parseInt(hm.get("room"))));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/reserve.jsp");
 		try {

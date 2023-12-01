@@ -58,7 +58,7 @@ public class RoomTypeManager {
 			if (!prs.next()) {
 				System.out.println("=> Creating room type 0");
 				prs.close();
-				addRoomTypei(0, "Deluxe Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1, 80);
+				addRoomTypei(0, "Deluxe Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "No pets allowed", 1, 80);
 			}
 			prs.close();
 
@@ -66,7 +66,7 @@ public class RoomTypeManager {
 			if (!prs.next()) {
 				System.out.println("=> Creating room type 1");
 				prs.close();
-				addRoomTypei(1, "Studio Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "Rules", 1, 90);
+				addRoomTypei(1, "Studio Suite", "- Fully-equipped kitchen with refrigerator, stovetop and microwave\n- Free Wifi", "No pets allowed", 1, 90);
 			}
 			prs.close();
 			stmt.close();

@@ -152,6 +152,7 @@ public class ReserveServlet extends HttpServlet {
 		try {
 			res = resman.createReservation(customer, billing, rtypeman.getRoomType(roomType), numRooms, numGuests, checkin, checkout);
 		} catch (ReservationOverflowException ex) {
+			bman.deleteBilling(billing.getId());
 			response.sendRedirect("/?tooManyReservations=1");
 			return;
 		}

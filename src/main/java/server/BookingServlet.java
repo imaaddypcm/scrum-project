@@ -7,6 +7,7 @@ import java.util.*;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import backend.*;
 
@@ -58,7 +59,6 @@ public class BookingServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
 
 		HashMap<String,String> hm = utils.convertToQueryStringToHashMap(request.getQueryString());
 		System.out.println(hm);
@@ -75,6 +75,14 @@ public class BookingServlet extends HttpServlet {
 		if (!forwardAttribute(request, hm, "numRooms"))
 			request.setAttribute("numRooms", 1);
 
+		Date start = Date.from(LocalDate.parse(request.getAttribute("checkin").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date end = Date.from(LocalDate.parse(request.getAttribute("checkout").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		List<RoomType> rts = new ArrayList<>();
+		for (RoomType roomType : rtypeman.getRoomTypes()) {
+			if (resman.getNumOfActiveReservations(roomType, start, end) < rooman.getRooms(roomType).size())
+				rts.add(roomType);
+		}
+		request.setAttribute("roomTypes", rts);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/booking.jsp");
 		try {
 			rd.forward(request, response);

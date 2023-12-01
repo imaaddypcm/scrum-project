@@ -48,6 +48,13 @@
     <h3>List of Rooms</h3>
 </div>
 <div class="room-container">
+    <c:if test="${roomTypes.isEmpty()}">
+        <div class="room">
+            <div class="room-content">
+                <h2>No available rooms match the criteria for the specified time.</h2>
+            </div>
+        </div>
+    </c:if>
     <c:forEach items="${roomTypes}" var="roomType">
         <div class="room">
             <c:choose>
@@ -70,29 +77,13 @@
                 <h2>${roomType.name}</h2>
                 <h2>$${roomType.price}/night</h2>
                 <p>${roomType.description}</p>
+                <p>Rules: ${roomType.rules}</p>
                 <div class="book center">
                     <a href="/reserve?checkin=${checkin}&checkout=${checkout}&numGuests=${numGuests}&numRooms=${numRooms}&room=${roomType.id}"><button class="button">Book Room</button></a>
                 </div>
-                 </div>
-             </div>
+            </div>
+        </div>
     </c:forEach>
 </div>
-
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Rules</th>
-            <th>ID</th>
-        </tr>
-        <c:forEach items="${roomTypes}" var="roomType">
-            <tr>
-                <td>${roomType.id}</td>
-                <td>${roomType.name}</td>
-                <td>${roomType.description}</td>
-                <td>${roomType.rules}</td>
-            </tr>
-        </c:forEach>
-    </table>
 </body>
 </html>

@@ -26,6 +26,8 @@ public class BillingManager {
 			+ "	'nameOnCard'     VARCHAR(255) NOT NULL,\n"
 			+ "	'cardType'       VARCHAR(255) NOT NULL,\n"
 			+ "	'zipCode'        VARCHAR(255),\n"
+			//+ " 'ammount'        REAL NOT NULL,\n"
+			//+ " 'effective'      DATE,\n"
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
@@ -98,5 +100,22 @@ public class BillingManager {
 
 	public Billing getBilling(int id) {
 		return billings.get(id);
+	}
+
+	public boolean deleteBilling(int id) {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM billing WHERE id = ?;");
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			pstmt.close();
+			billings.remove(id);
+			return true;
+		} catch (SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+			System.out.println("SQLState: " + ex.getSQLState());
+			System.out.println("VendorError: " + ex.getErrorCode());
+		}
+
+		return false;
 	}
 }

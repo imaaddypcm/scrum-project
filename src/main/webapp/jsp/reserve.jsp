@@ -15,7 +15,7 @@
             <a href="/find-reservation">My Reservations</a>
         </div>
     </div>
-    <h1>Step 2</h1>
+<h1>Step 2</h1>
 	<div style="width: 100%;">
         <div style="width: 30%; height: 100px; float: left;">
             <h1>Reservation Details:</h1>
@@ -24,6 +24,7 @@
             <p>Number of guests: ${param.numGuests}</p>
             <p>Start date: ${param.checkin}</p>
             <p>End date: ${param.checkout}</p>
+            <p>Price: $${type.price}</p>
         </div>
         <div style="margin-left: 30%; height: 100px;">
     	<form action="" method="post">

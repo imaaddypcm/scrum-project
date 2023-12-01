@@ -89,7 +89,7 @@ public class ReservationManager {
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
 
-		if (getNumOfActiveReservations(startTime, endTime) >= rooman.getRooms(roomType).size()) {
+		if (getNumOfActiveReservations(roomType, startTime, endTime) >= rooman.getRooms(roomType).size()) {
 			throw new ReservationOverflowException("Too many reservations for given period specified.");
 		}
 
@@ -165,10 +165,10 @@ public class ReservationManager {
 		return false;
 	}
 
-	private int getNumOfActiveReservations(Date start, Date end) {
+	public int getNumOfActiveReservations(RoomType roomType, Date start, Date end) {
 		int overlaps = 0;
 		for (Reservation reservation : reservations.values()) {
-			if (!reservation.getStartDate().after(end) && !reservation.getEndDate().before(start)) {
+			if (reservation.getRoomType().getId() == roomType.getId() && !reservation.getStartDate().after(end) && !reservation.getEndDate().before(start)) {
 				overlaps++;
 			}
 		}

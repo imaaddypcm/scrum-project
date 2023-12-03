@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.math.BigDecimal;
 
 import backend.*;
 
@@ -63,7 +64,7 @@ public class ReserveServlet extends HttpServlet {
 		//String roomType = request.getParameter("roomType");
 		response.setContentType("text/html");
 
-		HashMap<String,String> hm = utils.convertToQueryStringToHashMap(request.getQueryString());
+		HashMap<String,String> hm = utils.convertQueryStringToHashMap(request.getQueryString());
 
 		forwardAttribute(request, hm, "room");
 		forwardAttribute(request, hm, "numRooms");
@@ -94,7 +95,7 @@ public class ReserveServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// customer = cman.CreateCustomer(firstName, lastName, phoneNumber, email);
-		int roomType;
+		RoomType roomType;
 		int numRooms;
 		int numGuests;
 		Date checkin;
@@ -112,7 +113,7 @@ public class ReserveServlet extends HttpServlet {
 		String postalCode;
 
 		try {
-			roomType = Integer.parseInt(request.getParameter("roomType"));
+			roomType = rtypeman.getRoomType(Integer.parseInt(request.getParameter("roomType")));
 			numRooms = Integer.parseInt(request.getParameter("numRooms"));
 			numGuests = Integer.parseInt(request.getParameter("numGuests"));
 			checkin = Date.from(LocalDate.parse(request.getParameter("checkin")).atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -147,10 +148,10 @@ public class ReserveServlet extends HttpServlet {
 		}
 		System.out.println("=> Create reservation\nroomType "+roomType+" numRooms: "+numRooms+" numGuests: "+numGuests+" Checkin: "+checkin+" Checkout: "+checkout);
 		Customer customer = cman.findOrMake(firstName, lastName, phoneNumber, email, "");
-		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode);
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, postalCode, BigDecimal.valueOf(roomType.getPrice()), checkin);
 		Reservation res = null;
 		try {
-			res = resman.createReservation(customer, billing, rtypeman.getRoomType(roomType), numRooms, numGuests, checkin, checkout);
+			res = resman.createReservation(customer, billing, roomType, numRooms, numGuests, checkin, checkout);
 		} catch (ReservationOverflowException ex) {
 			bman.deleteBilling(billing.getId());
 			response.sendRedirect("/?tooManyReservations=1");

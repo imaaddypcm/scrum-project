@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import backend.BillingManager;
 import backend.Billing;
@@ -18,7 +20,8 @@ class BillingTests {
 		String nameOnCard = "John Doe";
 		String cardType = "Visa";
 		String zipCode = "12345";
-		Billing billing = new Billing(0, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+
+		Billing billing = new Billing(0, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, BigDecimal.valueOf(100), new Date());
 		assertNotNull(billing);
 		assertEquals(cardNumber, billing.getCardNumber(), "Invalid card number");
 		assertEquals(cardExpiration, billing.getcardExpiration(), "Invalid expiration date");
@@ -44,7 +47,7 @@ class BillingTests {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
 		BillingManager bman = new BillingManager(conn);
 		assertNotNull(bman, "Reservation manager creation failed!");
-		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, BigDecimal.valueOf(100), new Date());
 		assertNotNull(billing);
 		assertEquals(cardNumber, billing.getCardNumber(), "Invalid card number");
 		assertEquals(cardExpiration, billing.getcardExpiration(), "Invalid expiration date");
@@ -64,7 +67,7 @@ class BillingTests {
 		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
 		BillingManager bman = new BillingManager(conn);
 		assertNotNull(bman, "Reservation manager creation failed!");
-		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, BigDecimal.valueOf(100), new Date());
 		assertNotNull(billing);
 		assertEquals(cardNumber, billing.getCardNumber(), "Invalid card number");
 		assertEquals(cardExpiration, billing.getcardExpiration(), "Invalid expiration date");

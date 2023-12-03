@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.math.BigDecimal;
 
 import backend.*;
 
@@ -50,7 +51,7 @@ class CreateReservation {
 		String zipCode = "12345";
 
 		BillingManager billman = new BillingManager(conn);
-		Billing billing = billman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+		Billing billing = billman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, BigDecimal.valueOf(100), new Date());
 		assertNotNull(billing, "Billing creation failed!");
 
 		RoomTypeManager rtypeman = new RoomTypeManager(conn);

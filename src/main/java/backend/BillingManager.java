@@ -1,5 +1,7 @@
 package backend;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.sql.*;
 import java.util.Map;
 import java.util.HashMap;
@@ -26,8 +28,8 @@ public class BillingManager {
 			+ "	'nameOnCard'     VARCHAR(255) NOT NULL,\n"
 			+ "	'cardType'       VARCHAR(255) NOT NULL,\n"
 			+ "	'zipCode'        VARCHAR(255),\n"
-			//+ " 'ammount'        REAL NOT NULL,\n"
-			//+ " 'effective'      DATE,\n"
+			+ "	'amount'         MONEY NOT NULL,\n"
+			+ "	'effective'      DATE,\n"
 			+ "	PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
@@ -41,8 +43,10 @@ public class BillingManager {
 				String nameOnCard = rs.getString("nameOnCard");
 				String cardType = rs.getString("cardType");
 				String zipCode = rs.getString("zipCode");
+				BigDecimal amount = rs.getBigDecimal("amount");
+				Date effective = rs.getDate("effective");
 				System.out.println("Existing billing id: " + id);
-				Billing payment = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+				Billing payment = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, amount, effective);
 				billings.put(id, payment);
 			}
 			rs.close();
@@ -65,11 +69,11 @@ public class BillingManager {
 	 * @param zipCode Postal/Zip code associated with card
 	 * @return Returns the newly created Billing object which will be null if unsuccessful
 	 */
-	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode) {
+	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode, BigDecimal amount, Date effective) {
 		Billing billing = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode)\n"
-			+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING *;");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, amount, effective)\n"
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING *;");
 
 			// Insert data
 			pstmt.setString(1, cardNumber);
@@ -78,6 +82,8 @@ public class BillingManager {
 			pstmt.setString(4, nameOnCard);
 			pstmt.setString(5, cardType);
 			pstmt.setString(6, zipCode);
+			pstmt.setBigDecimal(7, amount);
+			pstmt.setDate(8, new java.sql.Date(effective.getTime()));
 
 			ResultSet rs = pstmt.executeQuery();
 			int id = rs.getInt("id");
@@ -85,7 +91,7 @@ public class BillingManager {
 
 			// Create Billing object
 			System.out.println("=> <Billing> Id: "+id);
-			billing = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode);
+			billing = new Billing(id, cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, amount, effective);
 			billings.put(id, billing);
 
 			pstmt.close();

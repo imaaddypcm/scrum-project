@@ -13,7 +13,7 @@ public class utils {
 	 * @param source GET query string
 	 * @return Hash map of arguments
 	 */
-	public static HashMap<String, String> convertToQueryStringToHashMap(String source) {
+	public static HashMap<String, String> convertQueryStringToHashMap(String source) {
 		HashMap<String, String> data = new HashMap<String, String>();
 
 		if (source == null)

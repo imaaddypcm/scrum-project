@@ -1,4 +1,8 @@
 package backend;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * Stores customer billing information and interfaces with the database
  * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
@@ -12,6 +16,8 @@ public class Billing {
     private String nameOnCard;
     private String cardType;
     private String zipCode;
+    private BigDecimal amount;
+    private Date effective;
 
      /**
      * Create Billing object, associated with billing entry in the database
@@ -23,13 +29,15 @@ public class Billing {
      * @param cardType       brand of card
      * @param zipCode        postal code
      */
-    public Billing(int id, String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode) {
+    public Billing(int id, String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode, BigDecimal amount, Date effective) {
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
         this.cvcNumber = cvcNumber;
         this.nameOnCard = nameOnCard;
         this.cardType = cardType;
         this.zipCode = zipCode;
+        this.amount = amount;
+        this.effective = effective;
         this.id = id;
     }
      /**

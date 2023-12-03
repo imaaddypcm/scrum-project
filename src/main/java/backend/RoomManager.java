@@ -27,17 +27,7 @@ public class RoomManager {
 		rooms = new ArrayList<>();
 		Manager man = Manager.getManager(conn);
 		RoomTypeManager rtypeman = man.getRoomTypeManager();
-		try{
-			/*CREATE TABLE "rooms" (
-			"roomID"	INTEGER,
-			"room_number"	TEXT NOT NULL,
-			"room_type"	TEXT NOT NULL,
-			"price"	REAL NOT NULL,
-			 **"description"	TEXT,**********************
-			"rules"         TEXT*********************
-			PRIMARY KEY("room_ID")
-			);*/
-
+		try {
 			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'rooms' (\n"

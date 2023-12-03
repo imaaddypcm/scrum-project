@@ -60,7 +60,7 @@ public class BookingServlet extends HttpServlet {
 		response.setContentType("text/html");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		HashMap<String,String> hm = utils.convertToQueryStringToHashMap(request.getQueryString());
+		HashMap<String,String> hm = utils.convertQueryStringToHashMap(request.getQueryString());
 		System.out.println(hm);
 
 		if (!forwardAttribute(request, hm, "checkin"))

@@ -80,7 +80,7 @@ public class BookingServlet extends HttpServlet {
 		List<RoomType> rts = new ArrayList<>();
 		int numRooms = Integer.parseInt(request.getAttribute("numRooms").toString());
 		for (RoomType roomType : rtypeman.getRoomTypes()) {
-			if (resman.getNumOfActiveReservations(roomType, start, end) + numRooms <= rooman.getRooms(roomType).size())
+			if (resman.getNumReservationOverlaps(roomType, start, end) + numRooms <= rooman.getRooms(roomType).size())
 				rts.add(roomType);
 		}
 		request.setAttribute("roomTypes", rts);

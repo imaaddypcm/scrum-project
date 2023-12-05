@@ -3,6 +3,7 @@ import java.util.Date;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Factory interface for managing rooms types using the specified database connection.
@@ -91,7 +92,7 @@ public class ReservationManager {
 		java.sql.Date startDate = new java.sql.Date(startTime.getTime());
 		java.sql.Date endDate = new java.sql.Date(endTime.getTime());
 
-		if (getNumOfActiveReservations(roomType, startTime, endTime) + numberOfRooms > rooman.getRooms(roomType).size()) {
+		if (getNumReservationOverlaps(roomType, startTime, endTime) + numberOfRooms > rooman.getRooms(roomType).size()) {
 			throw new ReservationOverflowException("Too many reservations for given period specified.");
 		}
 
@@ -171,16 +172,41 @@ public class ReservationManager {
 		return false;
 	}
 
-	public int getNumOfActiveReservations(RoomType roomType, Date start, Date end) {
+	public int getNumReservationOverlaps(RoomType roomType, Date start, Date end) {
 		int overlaps = 0;
+		ArrayList<ReservationDateCheck> dates = new ArrayList<>();
 		for (Reservation reservation : reservations.values()) {
 			if (roomType != null && reservation.getRoomType().getId() != roomType.getId()) {
 				continue;
 			}
 			if (reservation.getStartDate().before(end) && reservation.getEndDate().after(start)) {
-				overlaps += reservation.getNumberOfRooms();
+				dates.add(new ReservationDateCheck(reservation.getStartDate(), true, reservation.getNumberOfRooms()));
+				dates.add(new ReservationDateCheck(reservation.getEndDate(), false, reservation.getNumberOfRooms()));
 			}
 		}
+		dates.sort((a, b) -> a.date.compareTo(b.date));
+		int count = 0;
+		for (ReservationDateCheck date : dates) {
+			//System.out.println("Date: " + date.date + " isStart: " + date.isStart);
+			if (date.isStart) {
+				count += date.count;
+			} else {
+				count -= date.count;
+			}
+			overlaps = Math.max(overlaps, count);
+		}
 		return overlaps;
+	}
+}
+
+class ReservationDateCheck {
+	public Date date;
+	public boolean isStart;
+	public int count;
+
+	ReservationDateCheck(Date date, boolean isStart, int count) {
+		this.date = date;
+		this.isStart = isStart;
+		this.count = count;
 	}
 }

@@ -71,7 +71,7 @@ public class AdminServlet extends HttpServlet {
 		Date start = Date.from(LocalDate.parse(request.getAttribute("startDate").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date end = Date.from(LocalDate.parse(request.getAttribute("endDate").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		request.setAttribute("revenue", bman.getRevenue(start, end));
-		request.setAttribute("occupancy", resman.getNumOfActiveReservations(null, start, end));
+		request.setAttribute("occupancy", resman.getNumReservationOverlaps(null, start, end));
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/admin.jsp");
 		try {

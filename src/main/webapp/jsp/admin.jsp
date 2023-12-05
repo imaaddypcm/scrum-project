@@ -20,7 +20,11 @@
 	<input type="submit" value="Submit">
 </form>
 <c:if test = "${not empty revenue}">
-<p>$${revenue}</p>
+<p>Revenue: $${revenue}</p>
+</c:if>
+
+<c:if test = "${not empty occupancy}">
+<p>Occupancy: ${occupancy}</p>
 </c:if>
 
 <h1>Reservations</h1>

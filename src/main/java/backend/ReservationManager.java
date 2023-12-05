@@ -15,6 +15,7 @@ public class ReservationManager {
 	private Connection conn = null;
 
 	RoomManager rooman = null;
+	BillingManager bman = null;
 
 	/**
 	 * Constructor for objects of class ReservationManager.
@@ -23,9 +24,9 @@ public class ReservationManager {
 	public ReservationManager(Connection conn) {
 		Manager man = Manager.getManager(conn);
 		CustomerManager cman = man.getCustomerManager();
-		BillingManager bman = man.getBillingManager();
 		RoomTypeManager rtypeman = man.getRoomTypeManager();
 		rooman = man.getRoomManager();
+		bman = man.getBillingManager();
 
 		reservations = new HashMap<>();
 		this.conn = conn;
@@ -151,6 +152,10 @@ public class ReservationManager {
 	 */
 	public boolean cancelReservation(int reservationId) {
 		try {
+			Reservation res = reservations.get(reservationId);
+			if (res.getBilling().getEffective().before(new Date())) {
+				bman.deleteBilling(res.getBilling().getId());
+			}
 			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM reservations WHERE id = ?;");
 			pstmt.setInt(1, reservationId);
 			pstmt.executeUpdate();
@@ -169,7 +174,10 @@ public class ReservationManager {
 	public int getNumOfActiveReservations(RoomType roomType, Date start, Date end) {
 		int overlaps = 0;
 		for (Reservation reservation : reservations.values()) {
-			if (reservation.getRoomType().getId() == roomType.getId() && reservation.getStartDate().before(end) && reservation.getEndDate().after(start)) {
+			if (roomType != null && reservation.getRoomType().getId() != roomType.getId()) {
+				continue;
+			}
+			if (reservation.getStartDate().before(end) && reservation.getEndDate().after(start)) {
 				overlaps++;
 			}
 		}

@@ -78,8 +78,9 @@ public class BookingServlet extends HttpServlet {
 		Date start = Date.from(LocalDate.parse(request.getAttribute("checkin").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date end = Date.from(LocalDate.parse(request.getAttribute("checkout").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		List<RoomType> rts = new ArrayList<>();
+		int numRooms = Integer.parseInt(request.getAttribute("numRooms").toString());
 		for (RoomType roomType : rtypeman.getRoomTypes()) {
-			if (resman.getNumOfActiveReservations(roomType, start, end) < rooman.getRooms(roomType).size())
+			if (resman.getNumOfActiveReservations(roomType, start, end) + numRooms <= rooman.getRooms(roomType).size())
 				rts.add(roomType);
 		}
 		request.setAttribute("roomTypes", rts);

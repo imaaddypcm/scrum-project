@@ -9,6 +9,11 @@ import jakarta.servlet.annotation.ServletSecurity.TransportGuarantee;
 import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 // Arie Nov 30 2023: TODO: Daily occupancy rate and Revenue tracking - Weekly or monthly
 
 /**
@@ -34,6 +39,11 @@ public class AdminServlet extends HttpServlet {
 		cman = man.getCustomerManager();
 	}
 
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		doGet(request, response);
+	}
+
 	/**
 	 * Displays administrator page
 	 * @param request    User request structure
@@ -42,10 +52,26 @@ public class AdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		request.setAttribute("reservations", resman.getReservations());
 		request.setAttribute("roomTypes", rtypeman.getRoomTypes());
 		request.setAttribute("rooms", rooman.getRooms());
 		request.setAttribute("customers", cman.getCustomers());
+		if (request.getParameter("startDate") != null) {
+			request.setAttribute("startDate", request.getParameter("startDate"));
+		} else {
+			request.setAttribute("startDate", LocalDate.now().minusMonths(1).format(formatter));
+		}
+		if (request.getParameter("endDate") != null) {
+			request.setAttribute("endDate", request.getParameter("endDate"));
+		} else {
+			request.setAttribute("endDate", LocalDate.now().plusMonths(1).format(formatter));
+		}
+
+		Date start = Date.from(LocalDate.parse(request.getAttribute("startDate").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date end = Date.from(LocalDate.parse(request.getAttribute("endDate").toString()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		request.setAttribute("revenue", bman.getRevenue(start, end));
+
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/jsp/admin.jsp");
 		try {
 			rd.forward(request, response);

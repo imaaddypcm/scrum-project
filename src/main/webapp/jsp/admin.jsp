@@ -9,6 +9,20 @@
 </head>
 <body>
 
+<h1>Revenue:</h1>
+<form action="/admin" method="post">
+	<div>
+		<label for="name">Start date:</label>
+		<input type="date" name="startDate" value="${startDate}"/>
+		<label for="name">End date:</label>
+		<input type="date" name="endDate" value="${endDate}"/>
+	</div>
+	<input type="submit" value="Submit">
+</form>
+<c:if test = "${not empty revenue}">
+<p>$${revenue}</p>
+</c:if>
+
 <h1>Reservations</h1>
 <table border="1">
 	<tr>

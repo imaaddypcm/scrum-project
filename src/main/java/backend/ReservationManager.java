@@ -34,15 +34,16 @@ public class ReservationManager {
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'reservations' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
-			+ " 'numberOfRooms'  INTEGER NOT NULL,\n"
-			+ " 'numberOfGuests' INTEGER NOT NULL,\n"
-			+ " 'roomTypeID'       INTEGER NOT NULL,\n"
 			+ " 'startDate'      DATE NOT NULL,\n"
 			+ " 'endDate'        DATE NOT NULL,\n"
+			+ " 'numberOfRooms'  INTEGER NOT NULL,\n"
+			+ " 'numberOfGuests' INTEGER NOT NULL,\n"
+			+ " 'roomTypeID'     INTEGER NOT NULL,\n"
 			+ " 'customerID'     INTEGER NOT NULL,\n"
 			+ " 'billingID'      INTEGER NOT NULL,\n"
 			+ " FOREIGN KEY('customerID') REFERENCES 'customers'('id'),\n"
-			+ " FOREIGN KEY('billingID') REFERENCES 'billing'('id'),\n"
+			+ " FOREIGN KEY('billingID') REFERENCES 'billings'('id'),\n"
+			+ " FOREIGN KEY('roomTypeID') REFERENCES 'roomTypes'('id'),\n"
 			+ " PRIMARY KEY('id' AUTOINCREMENT)\n"
 			+ ");");
 
@@ -168,7 +169,7 @@ public class ReservationManager {
 	public int getNumOfActiveReservations(RoomType roomType, Date start, Date end) {
 		int overlaps = 0;
 		for (Reservation reservation : reservations.values()) {
-			if (reservation.getRoomType().getId() == roomType.getId() && !reservation.getStartDate().after(end) && !reservation.getEndDate().before(start)) {
+			if (reservation.getRoomType().getId() == roomType.getId() && reservation.getStartDate().before(end) && reservation.getEndDate().after(start)) {
 				overlaps++;
 			}
 		}

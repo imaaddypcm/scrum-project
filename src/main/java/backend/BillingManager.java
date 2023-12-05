@@ -20,7 +20,7 @@ public class BillingManager {
 		try {
 			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
-			stmt.execute("CREATE TABLE IF NOT EXISTS 'billing' (\n"
+			stmt.execute("CREATE TABLE IF NOT EXISTS 'billings' (\n"
 			+ " 'id' INTEGER NOT NULL UNIQUE,\n"
 			+ " 'cardNumber'     VARCHAR(255) NOT NULL,\n"
 			+ "	'cardExpiration' VARCHAR(255) NOT NULL,\n"
@@ -34,7 +34,7 @@ public class BillingManager {
 			+ ");");
 
 			// Insert preexisting entries into billings HashMap
-			ResultSet rs = stmt.executeQuery("SELECT * FROM 'billing'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM 'billings'");
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String cardNumber = rs.getString("cardNumber");
@@ -72,7 +72,7 @@ public class BillingManager {
 	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode, BigDecimal amount, Date effective) {
 		Billing billing = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billing (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, amount, effective)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO billings (cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, amount, effective)\n"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING *;");
 
 			// Insert data
@@ -104,13 +104,23 @@ public class BillingManager {
 		return billing;
 	}
 
+	/**
+	 * Get billing object for billing id
+	 * @param id billing id
+	 * @return billing object
+	 */
 	public Billing getBilling(int id) {
 		return billings.get(id);
 	}
 
+	/**
+	 * Delete billing entry from database
+	 * @param id billing id
+	 * @return true if suceeded, false otherwise
+	 */
 	public boolean deleteBilling(int id) {
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM billing WHERE id = ?;");
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM billings WHERE id = ?;");
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 			pstmt.close();
@@ -123,5 +133,21 @@ public class BillingManager {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get estimated revenue for time period (based on past and pending billings)
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public BigDecimal getRevenue(Date start, Date end) {
+		BigDecimal value = new BigDecimal(0);
+		for (Billing billing : billings.values()) {
+			Date effective = billing.getEffective();
+			if (!(effective.before(start) || effective.after(end)))
+				value = value.add(billing.getAmount());
+		}
+		return value;
 	}
 }

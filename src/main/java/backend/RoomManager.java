@@ -22,7 +22,7 @@ public class RoomManager {
 	 * Constructs a RoomManager with a given database connection
 	 * @param conn The database connection to use for room managment.
 	 */
-	public RoomManager(Connection conn){
+	public RoomManager(Connection conn) {
 		this.conn = conn;
 		rooms = new ArrayList<>();
 		Manager man = Manager.getManager(conn);
@@ -31,8 +31,9 @@ public class RoomManager {
 			// Create table if it doesn't already exist
 			Statement stmt = conn.createStatement();
 			stmt.execute("CREATE TABLE IF NOT EXISTS 'rooms' (\n"
-			+ " 'number' INTEGER NOT NULL UNIQUE,\n"
-			+ "	'type'   INTEGER NOT NULL,\n"
+			+ " 'number'     INTEGER NOT NULL UNIQUE,\n"
+			+ " 'roomTypeID' INTEGER NOT NULL,\n"
+			+ " FOREIGN KEY('roomTypeID') REFERENCES 'roomTypes'('id'),\n"
 			+ "	PRIMARY KEY('number')\n"
 			+ ");");
 
@@ -40,7 +41,7 @@ public class RoomManager {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM rooms");
 			while(rs.next()){
 				int roomNumber = rs.getInt("number");
-				int roomTypeID   = rs.getInt("type");
+				int roomTypeID = rs.getInt("roomTypeID");
 
 				Room room = new Room(roomNumber, rtypeman.getRoomType(roomTypeID));
 				rooms.add(room);
@@ -80,7 +81,7 @@ public class RoomManager {
 	public Room createRoom(int roomNumber, RoomType roomType) {
 		Room room = null;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (number, type)\n"
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO rooms (number, roomTypeID)\n"
 			+ "VALUES (?, ?) RETURNING *;");
 
 			//Insert data

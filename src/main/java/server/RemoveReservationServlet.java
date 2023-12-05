@@ -40,7 +40,7 @@ public class RemoveReservationServlet extends HttpServlet {
 	}
 
 	/**
-	 *
+	 * Process reservation deletion request
 	 * @param request    User request structure
 	 * @param response   HTTP response
 	 */
@@ -53,6 +53,7 @@ public class RemoveReservationServlet extends HttpServlet {
 			if (resman.cancelReservation(resvNum)) {
 				session.removeAttribute("viewReservationId");
 				response.sendRedirect("/?cancelComplete=1");
+				return;
 			}
 		}
 

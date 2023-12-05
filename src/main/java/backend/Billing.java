@@ -94,4 +94,20 @@ public class Billing {
     public int getId() {
         return id;
     }
+
+    /**
+     * Retrieves price that will be billed
+     * @return The billing amount
+     */
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    /**
+     * Retrieves effective date for the billing
+     * @return The date that the billing wil be charged
+     */
+    public Date getEffective() {
+        return effective;
+    }
 }

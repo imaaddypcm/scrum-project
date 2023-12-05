@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Calendar;
 
 import backend.BillingManager;
 import backend.Billing;
@@ -87,4 +88,42 @@ class BillingTests {
 		assertNull(retrivedBilling, "Returned invalid billing object!");
 	}
 
+	@Test void testGetRevenueWeek(@TempDir Path tempDir) throws Exception {
+		String cardNumber = "1010101";
+		String cardExpiration = "12/23";
+		String cvcNumber = "123";
+		String nameOnCard = "John Doe";
+		String cardType = "Visa";
+		String zipCode = "12345";
+		Date effective = new Date();
+		BigDecimal price = BigDecimal.valueOf(100);
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
+		BillingManager bman = new BillingManager(conn);
+		assertNotNull(bman, "Reservation manager creation failed!");
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, price, effective);
+		BigDecimal revenue = bman.getRevenue(effective,effective);
+		System.out.println("Revenue: " + revenue + " Price: " + price);
+		assertEquals(revenue, price);
+	}
+
+	@Test void testGetRevenueWeekInvalidPeriod(@TempDir Path tempDir) throws Exception {
+		String cardNumber = "1010101";
+		String cardExpiration = "12/23";
+		String cvcNumber = "123";
+		String nameOnCard = "John Doe";
+		String cardType = "Visa";
+		String zipCode = "12345";
+		Date effective = new Date();
+		BigDecimal price = BigDecimal.valueOf(100);
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:"+tempDir.toAbsolutePath()+"/dummy.sqlite");
+		BillingManager bman = new BillingManager(conn);
+		assertNotNull(bman, "Reservation manager creation failed!");
+		Billing billing = bman.createBilling(cardNumber, cardExpiration, cvcNumber, nameOnCard, cardType, zipCode, price, effective);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(effective);
+		cal.add(Calendar.HOUR_OF_DAY, 1);
+		BigDecimal revenue = bman.getRevenue(cal.getTime(),cal.getTime());
+		System.out.println("Revenue: " + revenue + " Price: " + price);
+		assertNotEquals(revenue, price);
+	}
 }

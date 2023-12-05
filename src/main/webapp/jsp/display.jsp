@@ -13,7 +13,7 @@
 	<p>Reservation id: ${reservation.id}</p>
 	<p>Checkin Date: ${reservation.startDate}</p>
 	<p>Checkout Date: ${reservation.endDate}</p>
-	<p>Room Type: ${reservation.roomType}</p>
+	<p>Room Type: ${reservation.roomType.name}</p>
 	<p>Rooms: ${reservation.numberOfRooms}</p>
 	<p>Guests: ${reservation.numberOfGuests}</p>
 	<a href="/cancelReservation"><button>Cancel reservation</button></a>

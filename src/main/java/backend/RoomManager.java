@@ -62,6 +62,11 @@ public class RoomManager {
 		return rooms;
 	}
 
+	/**
+	 * Get a list of all rooms managed by this RoomManger of a specified roomType.
+	 * @param rt The roomType of the rooms.
+	 * @return A list of rooms objects with the specified roomType.
+	 */
 	public List<Room> getRooms(RoomType rt) {
 		List<Room> ret = new ArrayList<>();
 		for (Room room : rooms) {

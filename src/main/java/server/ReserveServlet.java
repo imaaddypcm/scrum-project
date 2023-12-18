@@ -54,7 +54,7 @@ public class ReserveServlet extends HttpServlet {
 	}
 
 	/**
-	 *
+	 * Forwards attributes to JSP
 	 * @param request    Servlet request structure
 	 * @param response   HTTP-specific response
 	 */

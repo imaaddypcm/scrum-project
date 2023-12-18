@@ -77,6 +77,7 @@ public class RoomTypeManager {
 
 	/**
 	 * Retrieves a RoomType object with the specifies ID
+	 * @param id id of room type
 	 * @return Returns the RoomType object corresponding to the provided ID, or null if not found
 	 */
 	public RoomType getRoomType(int id) {
@@ -98,6 +99,7 @@ public class RoomTypeManager {
 	 * @param description acessories available for set roomt type
 	 * @param rules rules in place for this specific room
 	 * @param numberOfBeds number of beds for set room type
+	 * @param price Price per night of room type
 	 * @return Room type structure
 	 */
 	private RoomType addRoomTypei(int id, String name, String description, String rules, int numberOfBeds, int price) {
@@ -133,6 +135,7 @@ public class RoomTypeManager {
 	 * @param description acessories available for set room type
 	 * @param rules rules in place for this specific room
 	 * @param numberOfBeds number of beds for set room type
+	 * @param price Price per night of room type
 	 * @return Room type structure
 	 */
 	public RoomType addRoomType(String name, String description, String rules, int numberOfBeds, int price) {

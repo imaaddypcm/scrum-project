@@ -28,6 +28,8 @@ public class Billing {
      * @param nameOnCard     name associated with card
      * @param cardType       brand of card
      * @param zipCode        postal code
+     * @param amount         dollar ammount that will be charged
+     * @param effective      date/time of charging
      */
     public Billing(int id, String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode, BigDecimal amount, Date effective) {
         this.cardNumber = cardNumber;

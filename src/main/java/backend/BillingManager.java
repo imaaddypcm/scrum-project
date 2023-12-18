@@ -14,6 +14,10 @@ public class BillingManager {
 	private Map<Integer, Billing> billings;
 	private Connection conn = null;
 
+	/**
+	 * Constructor for objects of class BillingManager.
+	 * @param conn The database conncection to use for billing managment.
+	 */
 	public BillingManager(Connection conn) {
 		billings = new HashMap<>();
 		this.conn = conn;
@@ -67,6 +71,8 @@ public class BillingManager {
 	 * @param nameOnCard Name listed on card
 	 * @param cardType Brand/Type of Card
 	 * @param zipCode Postal/Zip code associated with card
+	 * @param amount  Charging amount of billing
+	 * @param effective Charging date of billing
 	 * @return Returns the newly created Billing object which will be null if unsuccessful
 	 */
 	public Billing createBilling(String cardNumber, String cardExpiration, String cvcNumber, String nameOnCard, String cardType, String zipCode, BigDecimal amount, Date effective) {
@@ -136,10 +142,10 @@ public class BillingManager {
 	}
 
 	/**
-	 * Get estimated revenue for time period (based on past and pending billings)
-	 * @param start
-	 * @param end
-	 * @return
+	 * Get estimated revenue of past and future billings for time period
+	 * @param start Starting date
+	 * @param end   Ending date
+	 * @return Estimated revenue
 	 */
 	public BigDecimal getRevenue(Date start, Date end) {
 		BigDecimal value = new BigDecimal(0);

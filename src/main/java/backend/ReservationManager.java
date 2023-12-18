@@ -85,7 +85,8 @@ public class ReservationManager {
 	 * @param numberOfGuests The number of Guests for thereservation.
 	 * @param startTime The date when a reservation starts.
 	 * @param endTime The date when a reservation ends.
-	 * @return A
+	 * @return Created reservation object
+	 * @throws ReservationOverflowException if there are too many reservations for the given period.
 	 */
 	public Reservation createReservation(Customer customer, Billing billing, RoomType roomType, int numberOfRooms, int numberOfGuests, Date startTime, Date endTime) throws ReservationOverflowException {
 		Reservation reservation = null;
@@ -172,6 +173,13 @@ public class ReservationManager {
 		return false;
 	}
 
+	/**
+	 * Get number of overlapping reservations
+	 * @param roomType Type of the room.
+	 * @param start Start date of reservation.
+	 * @param end End date of reservation.
+	 * @return Number of reservation overlaps.
+	 */
 	public int getNumReservationOverlaps(RoomType roomType, Date start, Date end) {
 		int overlaps = 0;
 		ArrayList<ReservationDateCheck> dates = new ArrayList<>();
@@ -199,11 +207,22 @@ public class ReservationManager {
 	}
 }
 
+/**
+ * Private object for use in checking for overlapping reservation dates.
+ * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
+ * @version Dec 17, 2023
+ */
 class ReservationDateCheck {
 	public Date date;
 	public boolean isStart;
 	public int count;
 
+	/**
+	 * Constructor for objects of class ReservationDateCheck.
+	 * @param date Date of reservation.
+	 * @param isStart Whether reservation started or not.
+	 * @param count Represents current count.
+	 */
 	ReservationDateCheck(Date date, boolean isStart, int count) {
 		this.date = date;
 		this.isStart = isStart;

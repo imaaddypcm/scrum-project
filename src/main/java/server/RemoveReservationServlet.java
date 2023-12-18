@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import backend.*;
 
 /**
- *
+ * MVC interface for canceling reservation specified by DisplayServlet
  * @author Arie Geiger, Jose Cortes, Kyle Cushing, Erik Zeladita
  * @version Nov 28, 2023
  */
@@ -23,6 +23,15 @@ public class RemoveReservationServlet extends HttpServlet {
 		resman = man.getReservationManager();
     }
 
+	/**
+	 * Handles GET requests for displaying reservation details before cancellation.
+	 * Retrives the reservation based on the reservation ID stored in the user session,
+	 * sets it as a request attribute, and forwards the request to the cancelReservation.jsp page
+	 *
+	 * @param request    HTTP request
+	 * @param response	HTTP responce
+	 * @throws IOException      If an I/O error occurs
+	 */
 	@Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();

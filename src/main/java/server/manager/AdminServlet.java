@@ -38,7 +38,11 @@ public class AdminServlet extends HttpServlet {
 		rtypeman = man.getRoomTypeManager();
 		cman = man.getCustomerManager();
 	}
-
+	/**
+	 * Calls doGet
+	 * @param request    User request structure
+	 * @param response   HTTP response
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		doGet(request, response);
